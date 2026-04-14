@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NeuroPocket AI — Offline AI assistant for Android with TurboQuant memory optimization. Run bigger models on 4GB–8GB+ phones. Private, powerful, always with you.">
+<meta property="og:title" content="NeuroPocket AI — Offline AI in Your Pocket">
+<meta property="og:description" content="TurboQuant-powered on-device AI. Chat, documents, vision, voice — 100% private, no cloud required.">
+<title>NeuroPocket AI — Offline AI in Your Pocket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ===== TOKENS ===== */
+:root{
+  --bg:#04080f;--bg2:#070d1a;--bg3:#0a1221;
+  --card:rgba(255,255,255,.03);--card-h:rgba(255,255,255,.055);
+  --border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.14);
+  --blue:#3b82f6;--blue-l:#60a5fa;--blue-g:rgba(59,130,246,.28);
+  --purple:#8b5cf6;--purple-l:#a78bfa;--purple-g:rgba(139,92,246,.28);
+  --teal:#06d6a0;--teal-g:rgba(6,214,160,.2);
+  --pink:#f472b6;
+  --text:#f1f5f9;--muted:#94a3b8;--faint:#334155;
+  --r:16px;--r2:24px;
+  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  --transition:0.35s cubic-bezier(.4,0,.2,1);
+}
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.65}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--faint);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--blue)}
+::selection{background:rgba(59,130,246,.3);color:#fff}
+img{max-width:100%;display:block}
+a{text-decoration:none}
+
+/* ===== NOISE OVERLAY ===== */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.55
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 2.5rem;
+  background:rgba(4,8,15,.6);backdrop-filter:blur(24px);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--transition),background var(--transition)
+}
+nav.scrolled{border-bottom-color:var(--border);background:rgba(4,8,15,.9)}
+.n-logo{display:flex;align-items:center;gap:.65rem}
+.n-logo-box{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  box-shadow:0 0 24px var(--blue-g)
+}
+.n-logo-name{
+  font-weight:800;font-size:1.05rem;
+  background:linear-gradient(90deg,var(--blue-l),var(--purple-l));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.n-links{list-style:none;display:flex;gap:2rem}
+.n-links a{color:var(--muted);font-size:.875rem;font-weight:500;transition:color .2s}
+.n-links a:hover{color:var(--text)}
+.n-cta{
+  display:flex;align-items:center;gap:.45rem;
+  padding:.5rem 1.25rem;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;font-size:.85rem;font-weight:700;
+  box-shadow:0 4px 22px var(--blue-g);transition:all .2s
+}
+.n-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--blue-g)}
+.n-cta svg{width:16px;height:16px}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--muted);border-radius:2px;transition:.3s}
+
+/* ===== HERO ===== */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+#neural-canvas{position:absolute;inset:0;pointer-events:none}
+.h-glow-l{position:absolute;top:-300px;left:-200px;width:800px;height:800px;background:radial-gradient(circle,rgba(139,92,246,.12) 0%,transparent 65%);pointer-events:none}
+.h-glow-r{position:absolute;bottom:-300px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(59,130,246,.12) 0%,transparent 65%);pointer-events:none}
+.h-inner{
+  position:relative;z-index:2;
+  max-width:1280px;margin:0 auto;padding:0 2.5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+  padding-top:88px
+}
+/* left */
+.h-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.35rem 1rem;border-radius:100px;
+  border:1px solid rgba(139,92,246,.4);
+  background:rgba(139,92,246,.08);
+  color:#c4b5fd;font-size:.75rem;font-weight:700;letter-spacing:.05em;
+  margin-bottom:1.5rem;width:fit-content
+}
+.h-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+.h-title{font-size:clamp(2.8rem,4.5vw,5rem);font-weight:900;line-height:1.04;letter-spacing:-.035em;margin-bottom:1.4rem}
+.h-title .gt{
+  background:linear-gradient(135deg,var(--blue-l) 0%,var(--purple-l) 50%,#f0abfc 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.h-sub{font-size:1.1rem;color:var(--muted);max-width:500px;line-height:1.8;margin-bottom:2.5rem}
+.h-sub strong{color:var(--blue-l);font-weight:600}
+.h-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-p{
+  display:flex;align-items:center;gap:.55rem;
+  padding:.875rem 1.875rem;border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;font-weight:700;font-size:.95rem;
+  box-shadow:0 8px 32px var(--blue-g);transition:all var(--transition)
+}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 14px 44px var(--blue-g)}
+.btn-p svg{width:18px;height:18px}
+.btn-s{
+  display:flex;align-items:center;gap:.55rem;
+  padding:.875rem 1.875rem;border-radius:12px;
+  border:1px solid var(--border-h);background:var(--card);
+  color:var(--text);font-weight:600;font-size:.95rem;
+  backdrop-filter:blur(12px);transition:all var(--transition)
+}
+.btn-s:hover{border-color:var(--blue);background:rgba(59,130,246,.07);transform:translateY(-3px)}
+.btn-s svg{width:18px;height:18px}
+.h-social{display:flex;align-items:center;gap:.75rem}
+.h-social-label{font-size:.78rem;color:var(--faint)}
+.s-btn{
+  width:38px;height:38px;border-radius:10px;
+  border:1px solid var(--border);background:var(--card);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all .2s
+}
+.s-btn svg{width:16px;height:16px}
+.s-btn:hover{border-color:var(--blue);color:var(--blue-l);background:rgba(59,130,246,.08);transform:translateY(-2px)}
+
+/* right — phone */
+.h-right{display:flex;justify-content:center;align-items:center;position:relative}
+.phone-wrap{
+  position:relative;
+  animation:float-y 7s ease-in-out infinite;
+  transform:perspective(1000px) rotateY(-10deg) rotateX(4deg)
+}
+@keyframes float-y{0%,100%{transform:perspective(1000px) rotateY(-10deg) rotateX(4deg) translateY(0)}50%{transform:perspective(1000px) rotateY(-10deg) rotateX(4deg) translateY(-22px)}}
+.p-outer{
+  width:258px;height:526px;border-radius:40px;
+  background:linear-gradient(155deg,#1c2d4e,#0c1829);
+  border:2px solid rgba(79,142,247,.28);padding:13px;
+  box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.08),0 0 80px rgba(59,130,246,.12);
+  position:relative
+}
+.p-side-btn{position:absolute;right:-4px;top:90px;width:4px;height:48px;background:rgba(255,255,255,.06);border-radius:2px}
+.p-side-btn2{position:absolute;left:-4px;top:80px;width:4px;height:36px;background:rgba(255,255,255,.06);border-radius:2px}
+.p-side-btn3{position:absolute;left:-4px;top:126px;width:4px;height:36px;background:rgba(255,255,255,.06);border-radius:2px}
+.p-screen{width:100%;height:100%;border-radius:28px;background:linear-gradient(175deg,#091525,#06111e);overflow:hidden;position:relative}
+.p-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:78px;height:20px;background:#04080f;border-radius:0 0 14px 14px;z-index:10}
+/* screen content */
+.ps{font-family:var(--font)}
+.ps-top{background:rgba(9,21,37,.96);padding:26px 12px 9px;text-align:center;border-bottom:1px solid rgba(59,130,246,.1)}
+.ps-app-name{font-size:11.5px;font-weight:700;color:var(--blue-l)}
+.ps-online{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:3px}
+.ps-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:blink 1.6s infinite}
+.ps-online-txt{font-size:9px;color:var(--teal);font-family:var(--mono)}
+.ps-msgs{padding:10px 10px 0;display:flex;flex-direction:column;gap:7px}
+.ps-u{align-self:flex-end;padding:7px 10px;border-radius:11px 11px 3px 11px;background:rgba(59,130,246,.22);color:#bfdbfe;font-size:9.5px;max-width:80%;line-height:1.4}
+.ps-a{align-self:flex-start;padding:7px 10px;border-radius:11px 11px 11px 3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:#cbd5e1;font-size:9.5px;max-width:88%;line-height:1.4}
+.ps-a b{color:var(--blue-l);display:block;margin-bottom:2px;font-size:9px}
+.ps-tq{
+  margin:7px 10px 0;padding:8px 10px;
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:10px
+}
+.ps-tq-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.ps-tq-name{font-size:8px;font-weight:700;color:#c4b5fd;font-family:var(--mono)}
+.ps-tq-val{font-size:8px;color:var(--teal);font-family:var(--mono)}
+.ps-tq-track{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.ps-tq-fill{height:100%;width:60%;background:linear-gradient(90deg,var(--purple),var(--blue));animation:bar-anim 3s ease-in-out infinite}
+@keyframes bar-anim{0%,100%{opacity:1}50%{opacity:.65}}
+.ps-tq-labels{display:flex;justify-content:space-between;margin-top:4px}
+.ps-tq-lbl{font-size:7px;color:var(--faint);font-family:var(--mono)}
+.ps-tq-lbl.on{color:var(--blue-l);font-weight:700}
+.ps-nav{
+  position:absolute;bottom:0;left:0;right:0;height:44px;
+  background:rgba(6,17,30,.97);display:flex;align-items:center;
+  justify-content:space-around;border-top:1px solid rgba(255,255,255,.06)
+}
+.ps-nav-i{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ps-nav-i .ico{font-size:13px}
+.ps-nav-i .lbl{font-size:6.5px;color:var(--faint)}
+.ps-nav-i.act .lbl{color:var(--blue-l)}
+/* rings */
+.p-ring{position:absolute;border-radius:50%;border:1px solid rgba(59,130,246,.08);pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%)}
+.p-ring-1{width:360px;height:360px;animation:ring 5s ease-in-out infinite}
+.p-ring-2{width:480px;height:480px;animation:ring 5s ease-in-out infinite 2s}
+@keyframes ring{0%,100%{opacity:.25;transform:translate(-50%,-50%) scale(1)}50%{opacity:.08;transform:translate(-50%,-50%) scale(1.04)}}
+
+/* ===== STATS BAR ===== */
+.stats-wrap{position:relative;z-index:2;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.015);backdrop-filter:blur(12px)}
+.stats-inner{
+  max-width:1280px;margin:0 auto;padding:1.6rem 2.5rem;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center
+}
+.stat-num{
+  font-size:2.4rem;font-weight:900;
+  background:linear-gradient(135deg,var(--blue-l),var(--purple-l));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  display:block;line-height:1
+}
+.stat-lbl{font-size:.78rem;color:var(--muted);margin-top:.35rem;font-weight:500}
+
+/* ===== SHARED SECTION STYLES ===== */
+.wrap{max-width:1280px;margin:0 auto;padding:6rem 2.5rem}
+.sec-label{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blue-l);margin-bottom:.9rem
+}
+.sec-label::before{content:'';width:22px;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:2px}
+.sec-title{font-size:clamp(1.9rem,3.2vw,3rem);font-weight:900;letter-spacing:-.035em;line-height:1.08;margin-bottom:1.1rem}
+.sec-title .g{background:linear-gradient(135deg,var(--blue-l),var(--purple-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sec-desc{font-size:1rem;color:var(--muted);max-width:580px;line-height:1.78}
+
+/* ===== TURBO QUANT ===== */
+#turbo{position:relative;overflow:hidden}
+#turbo::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(139,92,246,.07) 0%,transparent 65%);pointer-events:none}
+.tq-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;margin-top:4rem}
+/* text side */
+.tq-why-list{margin-top:2rem;display:flex;flex-direction:column;gap:1.25rem}
+.tq-why{display:flex;gap:1rem;align-items:flex-start}
+.tq-why-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:19px;
+  border:1px solid var(--border);background:var(--card);flex-shrink:0
+}
+.tq-why-text h4{font-size:.92rem;font-weight:700;margin-bottom:.2rem}
+.tq-why-text p{font-size:.82rem;color:var(--muted);line-height:1.55}
+.tq-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:2rem}
+.tq-tag{padding:.28rem .75rem;border-radius:100px;font-size:.68rem;font-family:var(--mono);font-weight:600;border:1px solid var(--border);color:var(--muted);background:var(--card)}
+.tq-tag.h{border-color:rgba(139,92,246,.4);color:#c4b5fd;background:rgba(139,92,246,.1)}
+/* card side */
+.tq-card{
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(139,92,246,.18);border-radius:22px;
+  padding:2rem;
+  box-shadow:0 24px 72px rgba(0,0,0,.35),0 0 0 1px rgba(139,92,246,.07);
+  position:relative;overflow:hidden
+}
+.tq-card::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:220px;height:220px;
+  background:radial-gradient(circle,rgba(139,92,246,.15) 0%,transparent 70%)
+}
+.tq-card-head{display:flex;align-items:center;gap:.8rem;margin-bottom:1.6rem}
+.tq-c-icon{
+  width:46px;height:46px;border-radius:13px;
+  background:linear-gradient(135deg,rgba(139,92,246,.3),rgba(59,130,246,.25));
+  border:1px solid rgba(139,92,246,.3);
+  display:flex;align-items:center;justify-content:center;font-size:22px
+}
+.tq-c-title{font-size:1rem;font-weight:800}
+.tq-c-sub{font-size:.73rem;color:var(--muted);font-family:var(--mono);margin-top:1px}
+/* level buttons */
+.tq-lvls{display:flex;gap:.35rem;margin-bottom:1.5rem}
+.tq-lvl{
+  flex:1;padding:.5rem .2rem;border-radius:8px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);font-size:.68rem;font-family:var(--font);font-weight:700;
+  cursor:pointer;transition:all .28s;text-align:center
+}
+.tq-lvl:hover{border-color:var(--purple-l);color:#c4b5fd}
+.tq-lvl.on{
+  background:linear-gradient(135deg,rgba(139,92,246,.28),rgba(59,130,246,.22));
+  border-color:var(--purple);color:#fff;
+  box-shadow:0 4px 16px var(--purple-g)
+}
+/* metric bars */
+.tq-metrics{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem}
+.tq-metric{display:flex;align-items:center;gap:.75rem}
+.tq-metric-lbl{font-size:.72rem;color:var(--muted);width:115px;flex-shrink:0;font-family:var(--mono)}
+.tq-bar-bg{flex:1;height:7px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.tq-bar-f{height:100%;border-radius:4px;transition:width .65s cubic-bezier(.4,0,.2,1)}
+.tq-bar-f.mem{background:linear-gradient(90deg,var(--purple),var(--blue));box-shadow:0 0 6px var(--purple-g)}
+.tq-bar-f.perf{background:linear-gradient(90deg,var(--teal),var(--blue));box-shadow:0 0 6px var(--teal-g)}
+.tq-bar-f.qual{background:linear-gradient(90deg,var(--blue),var(--blue-l));box-shadow:0 0 6px var(--blue-g)}
+.tq-bar-val{font-size:.7rem;font-family:var(--mono);color:var(--muted);width:38px;text-align:right}
+/* summary */
+.tq-result{
+  display:flex;align-items:flex-start;gap:.75rem;
+  padding:.9rem 1rem;border-radius:11px;
+  background:rgba(6,214,160,.06);border:1px solid rgba(6,214,160,.18)
+}
+.tq-result-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.tq-result-txt{font-size:.82rem;color:#6ee7b7;font-family:var(--mono);line-height:1.55}
+.tq-result-txt b{color:var(--teal);font-weight:700}
+
+/* ===== FEATURES ===== */
+.feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem
+}
+.feat-card{
+  padding:1.875rem;border-radius:18px;
+  border:1px solid var(--border);background:var(--card);
+  transition:all var(--transition);position:relative;overflow:hidden;cursor:default
+}
+.feat-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(59,130,246,.06) 0%,transparent 55%);
+  opacity:0;transition:opacity var(--transition)
+}
+.feat-card:hover{border-color:rgba(59,130,246,.28);transform:translateY(-5px);box-shadow:0 22px 55px rgba(0,0,0,.22),0 0 0 1px rgba(59,130,246,.1)}
+.feat-card:hover::after{opacity:1}
+.feat-icon{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  margin-bottom:1.2rem;border:1px solid var(--border);position:relative;z-index:1
+}
+.fi-b{background:rgba(59,130,246,.13);border-color:rgba(59,130,246,.28)}
+.fi-p{background:rgba(139,92,246,.13);border-color:rgba(139,92,246,.28)}
+.fi-t{background:rgba(6,214,160,.08);border-color:rgba(6,214,160,.22)}
+.fi-k{background:rgba(244,114,182,.08);border-color:rgba(244,114,182,.22)}
+.fi-o{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.22)}
+.fi-i{background:rgba(99,102,241,.13);border-color:rgba(99,102,241,.28)}
+.feat-title{font-size:.97rem;font-weight:700;margin-bottom:.45rem;position:relative;z-index:1}
+.feat-desc{font-size:.835rem;color:var(--muted);line-height:1.62;position:relative;z-index:1}
+
+/* ===== HOW IT WORKS ===== */
+#how{position:relative}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3.5rem;position:relative}
+.how-steps::before{content:'';position:absolute;top:32px;left:16%;right:16%;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.3),rgba(139,92,246,.3),transparent)}
+.how-step{text-align:center;padding:2rem 1.5rem}
+.how-num{
+  width:60px;height:60px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(139,92,246,.15));
+  border:1px solid rgba(59,130,246,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:900;font-family:var(--mono);
+  color:var(--blue-l);margin:0 auto 1.2rem;
+  box-shadow:0 8px 24px var(--blue-g)
+}
+.how-title{font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+.how-desc{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ===== MODELS ===== */
+.models-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem}
+.model-card{
+  padding:1.75rem;border-radius:18px;
+  border:1px solid var(--border);background:var(--card);
+  position:relative;overflow:hidden;transition:all var(--transition)
+}
+.model-card:hover{border-color:rgba(59,130,246,.28);transform:translateY(-4px);box-shadow:0 22px 55px rgba(0,0,0,.22)}
+.model-card.featured{border-color:rgba(59,130,246,.28);background:rgba(59,130,246,.04)}
+.mc-badge{
+  position:absolute;top:1rem;right:1rem;
+  font-size:.62rem;font-weight:700;padding:.22rem .6rem;border-radius:100px;font-family:var(--mono)
+}
+.mc-b-blue{background:rgba(59,130,246,.2);color:var(--blue-l)}
+.mc-b-purple{background:rgba(139,92,246,.2);color:#c4b5fd}
+.mc-b-teal{background:rgba(6,214,160,.15);color:var(--teal)}
+.model-ram{font-size:.68rem;font-family:var(--mono);color:var(--blue-l);font-weight:700;letter-spacing:.06em;margin-bottom:.4rem}
+.model-tier{font-size:1.25rem;font-weight:800;margin-bottom:.65rem}
+.model-desc{font-size:.83rem;color:var(--muted);margin-bottom:1rem;line-height:1.55}
+.model-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.model-chip{
+  font-size:.66rem;padding:.18rem .55rem;border-radius:100px;
+  background:var(--card-h);border:1px solid var(--border);
+  color:var(--muted);font-family:var(--mono)
+}
+.model-compat{
+  display:flex;align-items:center;gap:.5rem;
+  margin-top:1rem;padding-top:.9rem;
+  border-top:1px solid var(--border)
+}
+.compat-bar{
+  flex:1;height:4px;border-radius:2px;
+  background:linear-gradient(90deg,var(--teal),var(--blue))
+}
+.compat-label{font-size:.68rem;color:var(--muted);font-family:var(--mono)}
+
+/* ===== SCREENSHOTS ===== */
+#screenshots{position:relative;overflow:hidden}
+.scr-track-wrap{overflow:hidden;margin-top:3.5rem;position:relative}
+.scr-track-wrap::before,.scr-track-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none
+}
+.scr-track-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.scr-track-wrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.scr-track{display:flex;gap:1.25rem;animation:scroll-x 30s linear infinite;width:max-content}
+.scr-track:hover{animation-play-state:paused}
+.scr-frame{
+  width:180px;height:360px;border-radius:22px;
+  border:1px solid var(--border);overflow:hidden;
+  background:linear-gradient(180deg,#0d1f3c,#06111e);
+  flex-shrink:0;position:relative;
+  box-shadow:0 16px 48px rgba(0,0,0,.4);
+  transition:transform .3s
+}
+.scr-frame:hover{transform:scale(1.04)}
+.scr-frame img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.scr-frame .scr-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:.6rem .75rem;font-size:.7rem;font-weight:600;
+  background:linear-gradient(0deg,rgba(4,8,15,.95) 0%,transparent 100%);
+  color:var(--muted)
+}
+@keyframes scroll-x{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===== AUDIENCE ===== */
+.audience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3.5rem}
+.aud-card{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:1.5rem;border-radius:15px;
+  border:1px solid var(--border);background:var(--card);
+  transition:all var(--transition)
+}
+.aud-card:hover{border-color:rgba(59,130,246,.22);background:var(--card-h);transform:translateX(5px)}
+.aud-emoji{font-size:2rem;flex-shrink:0;line-height:1}
+.aud-h3{font-size:.92rem;font-weight:700;margin-bottom:.25rem}
+.aud-p{font-size:.8rem;color:var(--muted);line-height:1.55}
+
+/* ===== DOWNLOAD CTA ===== */
+#download{position:relative}
+.cta-box{
+  border-radius:28px;padding:5.5rem 3rem;text-align:center;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(59,130,246,.08) 0%,rgba(139,92,246,.08) 100%);
+  border:1px solid rgba(59,130,246,.18)
+}
+.cta-box::before{
+  content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(59,130,246,.14) 0%,transparent 70%)
+}
+.cta-box::after{
+  content:'';position:absolute;bottom:-120px;right:-120px;
+  width:450px;height:450px;
+  background:radial-gradient(circle,rgba(139,92,246,.13) 0%,transparent 70%)
+}
+.cta-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple-l);margin-bottom:1rem;position:relative;z-index:1}
+.cta-title{font-size:clamp(1.9rem,3vw,3rem);font-weight:900;letter-spacing:-.035em;margin-bottom:1rem;position:relative;z-index:1}
+.cta-sub{color:var(--muted);font-size:1rem;margin-bottom:2.5rem;position:relative;z-index:1}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.cta-note{margin-top:1.5rem;font-size:.8rem;color:var(--faint);position:relative;z-index:1}
+
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
+.foot-inner{
+  max-width:1280px;margin:0 auto;padding:3rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem
+}
+.foot-brand{}
+.foot-logo{
+  font-size:1.2rem;font-weight:900;margin-bottom:.4rem;
+  background:linear-gradient(90deg,var(--blue-l),var(--purple-l));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.foot-tagline{font-size:.82rem;color:var(--muted)}
+.foot-links{display:flex;gap:.75rem;flex-wrap:wrap}
+.foot-link{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.55rem 1.1rem;border-radius:10px;
+  border:1px solid var(--border);background:var(--card);
+  color:var(--muted);font-size:.82rem;font-weight:500;
+  transition:all .2s
+}
+.foot-link svg{width:15px;height:15px;flex-shrink:0}
+.foot-link:hover{border-color:var(--blue);color:var(--blue-l);background:rgba(59,130,246,.06)}
+.foot-copy{
+  max-width:1280px;margin:0 auto;
+  padding:1.2rem 2.5rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:.75rem;font-size:.76rem;color:var(--faint)
+}
+.foot-copy a{color:var(--faint);transition:color .2s}
+.foot-copy a:hover{color:var(--blue-l)}
+
+/* ===== REVEAL ===== */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .h-inner{grid-template-columns:1fr;text-align:center;padding-top:96px}
+  .h-sub{max-width:100%}
+  .h-btns,.h-social{justify-content:center}
+  .h-right{margin-top:2.5rem}
+  .tq-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .models-grid{grid-template-columns:repeat(2,1fr)}
+  .how-steps::before{display:none}
+}
+@media(max-width:720px){
+  .n-links{display:none}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .feat-grid,.models-grid,.how-steps{grid-template-columns:1fr}
+  .audience-grid{grid-template-columns:1fr}
+  .foot-inner{flex-direction:column}
+  .foot-links{justify-content:center}
+  .wrap{padding:4rem 1.5rem}
+  .cta-box{padding:3.5rem 1.5rem}
+  .foot-copy{flex-direction:column;text-align:center}
+  .hamburger{display:flex}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav id="navbar">
+  <a href="#hero" class="n-logo">
+    <div class="n-logo-box">🧠</div>
+    <span class="n-logo-name">NeuroPocket AI</span>
+  </a>
+  <ul class="n-links">
+    <li><a href="#turbo">TurboQuant</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#models">Models</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="n-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.24.45 0 .9-.13 1.28-.37l14.3-8.23a1.51 1.51 0 000-2.62L5.45.55C5.07.31 4.62.18 4.17.18c-.35 0-.69.07-.99.24A1.88 1.88 0 002.25 2v19.8c0 .76.42 1.47 1.17 1.88"/></svg>
+    Get the App
+  </a>
+  <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <canvas id="neural-canvas"></canvas>
+  <div class="h-glow-l"></div>
+  <div class="h-glow-r"></div>
+
+  <div class="h-inner">
+    <!-- Left -->
+    <div class="h-left">
+      <div class="h-badge">
+        <span class="h-badge-dot"></span>
+        Offline · Private · On-Device AI
+      </div>
+      <h1 class="h-title">
+        AI that lives<br>
+        <span class="gt">in your pocket.</span><br>
+        Not the cloud.
+      </h1>
+      <p class="h-sub">
+        NeuroPocket AI brings <strong>TurboQuant-powered</strong> local inference to Android — run bigger, smarter models on 4GB–8GB+ phones. Chat, documents, vision, and voice. <strong>100% private. Always available.</strong>
+      </p>
+      <div class="h-btns">
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="btn-p">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.24.45 0 .9-.13 1.28-.37l14.3-8.23a1.51 1.51 0 000-2.62L5.45.55C5.07.31 4.62.18 4.17.18c-.35 0-.69.07-.99.24A1.88 1.88 0 002.25 2v19.8c0 .76.42 1.47 1.17 1.88"/></svg>
+          Download Free
+        </a>
+        <a href="#turbo" class="btn-s">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          See TurboQuant
+        </a>
+      </div>
+      <div class="h-social">
+        <span class="h-social-label">Find me on</span>
+        <a href="https://www.linkedin.com/in/aignishant/" target="_blank" class="s-btn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/aignishant" target="_blank" class="s-btn" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="https://medium.com/@aignishant" target="_blank" class="s-btn" title="Medium">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right — Phone -->
+    <div class="h-right">
+      <div class="p-ring p-ring-1"></div>
+      <div class="p-ring p-ring-2"></div>
+      <div class="phone-wrap">
+        <div class="p-outer">
+          <div class="p-side-btn"></div>
+          <div class="p-side-btn2"></div>
+          <div class="p-side-btn3"></div>
+          <div class="p-screen">
+            <div class="p-notch"></div>
+            <div class="ps">
+              <div class="ps-top">
+                <div class="ps-app-name">NeuroPocket AI</div>
+                <div class="ps-online">
+                  <span class="ps-dot"></span>
+                  <span class="ps-online-txt">on-device · offline ready</span>
+                </div>
+              </div>
+              <div class="ps-msgs">
+                <div class="ps-u">Summarize this PDF for me</div>
+                <div class="ps-a"><b>⚡ TurboQuant Active</b>Analysing document locally… Here's a concise summary running entirely on-device. Your data never leaves this phone.</div>
+                <div class="ps-u">What's the key finding?</div>
+                <div class="ps-a">The main insight is on page 3 — want me to elaborate? 🔒 Private.</div>
+              </div>
+              <div class="ps-tq">
+                <div class="ps-tq-row">
+                  <span class="ps-tq-name">⚡ TurboQuant</span>
+                  <span class="ps-tq-val">Balanced</span>
+                </div>
+                <div class="ps-tq-track"><div class="ps-tq-fill"></div></div>
+                <div class="ps-tq-labels">
+                  <span class="ps-tq-lbl">Off</span>
+                  <span class="ps-tq-lbl">Mild</span>
+                  <span class="ps-tq-lbl on">Bal</span>
+                  <span class="ps-tq-lbl">Aggr</span>
+                  <span class="ps-tq-lbl">Max</span>
+                </div>
+              </div>
+              <div class="ps-nav">
+                <div class="ps-nav-i act"><span class="ico">💬</span><span class="lbl">Chat</span></div>
+                <div class="ps-nav-i"><span class="ico">📄</span><span class="lbl">Docs</span></div>
+                <div class="ps-nav-i"><span class="ico">👁</span><span class="lbl">Vision</span></div>
+                <div class="ps-nav-i"><span class="ico">🎙</span><span class="lbl">Voice</span></div>
+                <div class="ps-nav-i"><span class="ico">🧠</span><span class="lbl">AI Brain</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<div class="stats-wrap">
+  <div class="stats-inner">
+    <div class="reveal">
+      <span class="stat-num" data-target="10">0</span>
+      <div class="stat-lbl">AI Models Available</div>
+    </div>
+    <div class="reveal d1">
+      <span class="stat-num" data-target="5">0</span>
+      <div class="stat-lbl">Core Feature Modes</div>
+    </div>
+    <div class="reveal d2">
+      <span class="stat-num" data-target="5">0</span>
+      <div class="stat-lbl">TurboQuant Levels</div>
+    </div>
+    <div class="reveal d3">
+      <span class="stat-num" data-suffix="%">100</span>
+      <div class="stat-lbl">On-Device Processing</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== TURBO QUANT ========== -->
+<div id="turbo">
+  <div class="wrap">
+    <div class="sec-label reveal">Key Technology</div>
+    <h2 class="sec-title reveal d1">
+      Meet <span class="g">TurboQuant™</span><br>
+      The engine behind the pocket.
+    </h2>
+    <p class="sec-desc reveal d2">
+      Inspired by research in KV-cache compression and efficient quantization — TurboQuant lets NeuroPocket AI fit <strong style="color:var(--blue-l)">bigger, smarter models</strong> into the limited RAM of a real phone, without quality collapse.
+    </p>
+
+    <div class="tq-grid">
+      <!-- Left: explanation -->
+      <div class="tq-text">
+        <div class="tq-why-list">
+          <div class="tq-why reveal">
+            <div class="tq-why-icon">🔬</div>
+            <div class="tq-why-text">
+              <h4>KV Cache Compression</h4>
+              <p>Reduces the memory overhead of the attention cache during inference — the biggest RAM bottleneck in transformer-based models on mobile hardware.</p>
+            </div>
+          </div>
+          <div class="tq-why reveal d1">
+            <div class="tq-why-icon">📱</div>
+            <div class="tq-why-text">
+              <h4>Device-Adaptive Quantization</h4>
+              <p>Instead of one-size-fits-all compression, TurboQuant maps optimization levels to your device profile — 4GB, 6GB, 8GB+ — so quality scales intelligently.</p>
+            </div>
+          </div>
+          <div class="tq-why reveal d2">
+            <div class="tq-why-icon">⚙️</div>
+            <div class="tq-why-text">
+              <h4>5 Tunable Levels — No ML Jargon</h4>
+              <p>Off → Mild → Balanced → Aggressive → Extreme. Users control their experience. The app handles the complexity.</p>
+            </div>
+          </div>
+          <div class="tq-why reveal d3">
+            <div class="tq-why-icon">🚀</div>
+            <div class="tq-why-text">
+              <h4>More Capability, Less RAM</h4>
+              <p>Models that previously needed flagship hardware now run comfortably on mid-range phones — unlocking real AI utility for more users.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tq-tags reveal d4">
+          <span class="tq-tag h">TurboQuant</span>
+          <span class="tq-tag h">KV Cache</span>
+          <span class="tq-tag h">QJL-inspired</span>
+          <span class="tq-tag">llama.rn</span>
+          <span class="tq-tag">React Native</span>
+          <span class="tq-tag">GGUF</span>
+          <span class="tq-tag">On-Device Inference</span>
+        </div>
+      </div>
+
+      <!-- Right: interactive card -->
+      <div class="tq-card reveal d1" id="tq-card">
+        <div class="tq-card-head">
+          <div class="tq-c-icon">⚡</div>
+          <div>
+            <div class="tq-c-title">TurboQuant Control Panel</div>
+            <div class="tq-c-sub">Select optimization level</div>
+          </div>
+        </div>
+        <div class="tq-lvls">
+          <button class="tq-lvl" data-level="0">Off</button>
+          <button class="tq-lvl" data-level="1">Mild</button>
+          <button class="tq-lvl on" data-level="2">Balanced</button>
+          <button class="tq-lvl" data-level="3">Aggressive</button>
+          <button class="tq-lvl" data-level="4">Extreme</button>
+        </div>
+        <div class="tq-metrics">
+          <div class="tq-metric">
+            <span class="tq-metric-lbl">Memory Usage</span>
+            <div class="tq-bar-bg"><div class="tq-bar-f mem" id="bar-mem" style="width:60%"></div></div>
+            <span class="tq-bar-val" id="val-mem">60%</span>
+          </div>
+          <div class="tq-metric">
+            <span class="tq-metric-lbl">Performance</span>
+            <div class="tq-bar-bg"><div class="tq-bar-f perf" id="bar-perf" style="width:70%"></div></div>
+            <span class="tq-bar-val" id="val-perf">70%</span>
+          </div>
+          <div class="tq-metric">
+            <span class="tq-metric-lbl">Output Quality</span>
+            <div class="tq-bar-bg"><div class="tq-bar-f qual" id="bar-qual" style="width:92%"></div></div>
+            <span class="tq-bar-val" id="val-qual">92%</span>
+          </div>
+        </div>
+        <div class="tq-result" id="tq-result">
+          <span class="tq-result-ico">✅</span>
+          <span class="tq-result-txt" id="tq-result-txt"><b>Balanced</b> — Optimal for most devices. Fits larger models on 6GB RAM phones with near-full quality output.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FEATURES ========== -->
+<div id="features">
+  <div class="wrap">
+    <div class="sec-label reveal">What It Does</div>
+    <h2 class="sec-title reveal d1">One app. <span class="g">Five AI superpowers.</span></h2>
+    <p class="sec-desc reveal d2">Not a demo. Not a proof of concept. A real, everyday AI workspace built for Android — with every core feature running locally on your device.</p>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon fi-b">💬</div>
+        <div class="feat-title">Private AI Chat</div>
+        <div class="feat-desc">Talk to a capable AI model directly on your phone for writing, brainstorming, Q&A, and summarisation. No prompts leave your device — ever.</div>
+      </div>
+      <div class="feat-card reveal d1">
+        <div class="feat-icon fi-p">📄</div>
+        <div class="feat-title">Document Q&amp;A</div>
+        <div class="feat-desc">Upload PDFs, TXTs, and CSVs and ask questions about them on-device. Your sensitive files never get uploaded to a server. Context-aware retrieval, built-in.</div>
+      </div>
+      <div class="feat-card reveal d2">
+        <div class="feat-icon fi-t">👁</div>
+        <div class="feat-title">Vision AI</div>
+        <div class="feat-desc">Capture an image or pick one from your gallery and get instant on-device analysis. Scene description, visual Q&A, context extraction — all local.</div>
+      </div>
+      <div class="feat-card reveal d3">
+        <div class="feat-icon fi-k">🎙</div>
+        <div class="feat-title">Voice Features</div>
+        <div class="feat-desc">Text-to-speech so you can listen instead of read. Voice-first interaction built for mobile — hands-free, accessible, and natural to use.</div>
+      </div>
+      <div class="feat-card reveal d4">
+        <div class="feat-icon fi-o">🧠</div>
+        <div class="feat-title">AI Brain</div>
+        <div class="feat-desc">The central model management hub. See which model is active, which are installed, what's available to download, and which is recommended for your device.</div>
+      </div>
+      <div class="feat-card reveal d5">
+        <div class="feat-icon fi-i">🔒</div>
+        <div class="feat-title">Privacy by Design</div>
+        <div class="feat-desc">No account required. No background telemetry. No cloud inference. Your conversations, documents, and images stay exactly where they belong — on your phone.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HOW IT WORKS ========== -->
+<div id="how">
+  <div class="wrap">
+    <div class="sec-label reveal">Get Started</div>
+    <h2 class="sec-title reveal d1">Up and running <span class="g">in three steps.</span></h2>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-num">01</div>
+        <div class="how-title">Install &amp; Open</div>
+        <div class="how-desc">Download NeuroPocket AI from the Play Store. Open the app — no sign-in, no cloud account, no setup wall.</div>
+      </div>
+      <div class="how-step reveal d2">
+        <div class="how-num">02</div>
+        <div class="how-title">Choose Your Model</div>
+        <div class="how-desc">The AI Brain recommends the best model for your device's RAM. One tap to download — TurboQuant handles the rest.</div>
+      </div>
+      <div class="how-step reveal d4">
+        <div class="how-num">03</div>
+        <div class="how-title">Use Anywhere</div>
+        <div class="how-desc">Chat, analyse documents, inspect images, or use voice — online or completely offline. Your AI, always in your pocket.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MODELS ========== -->
+<div id="models">
+  <div class="wrap">
+    <div class="sec-label reveal">AI Brain</div>
+    <h2 class="sec-title reveal d1">Right model. <span class="g">Right device. Every time.</span></h2>
+    <p class="sec-desc reveal d2">NeuroPocket AI profiles your device and recommends models that actually run well — no trial and error, no out-of-memory crashes.</p>
+    <div class="models-grid">
+      <div class="model-card reveal">
+        <span class="mc-badge mc-b-teal">Entry</span>
+        <div class="model-ram">4 GB RAM</div>
+        <div class="model-tier">Lightweight Tier</div>
+        <div class="model-desc">Fast, snappy assistants for everyday help — summaries, Q&A, and quick writing on any Android phone.</div>
+        <div class="model-chips">
+          <span class="model-chip">SmolLM2 1.7B</span>
+          <span class="model-chip">Phi-3.5 Mini</span>
+          <span class="model-chip">Qwen 2.5 0.5B</span>
+        </div>
+        <div class="model-compat">
+          <div class="compat-bar" style="width:40%;background:linear-gradient(90deg,var(--teal),#3b82f6)"></div>
+          <span class="compat-label">Recommended for 4GB</span>
+        </div>
+      </div>
+      <div class="model-card featured reveal d1">
+        <span class="mc-badge mc-b-blue">Popular</span>
+        <div class="model-ram">6 GB RAM</div>
+        <div class="model-tier">Mid-Range Tier</div>
+        <div class="model-desc">Stronger reasoning, richer writing, and better document understanding. The sweet spot for most modern Android devices.</div>
+        <div class="model-chips">
+          <span class="model-chip">Llama 3.2 3B</span>
+          <span class="model-chip">Qwen 2.5 3B</span>
+          <span class="model-chip">Gemma 2 2B</span>
+        </div>
+        <div class="model-compat">
+          <div class="compat-bar" style="width:68%"></div>
+          <span class="compat-label">Best for 6GB</span>
+        </div>
+      </div>
+      <div class="model-card reveal d2">
+        <span class="mc-badge mc-b-purple">Power</span>
+        <div class="model-ram">8 GB+ RAM</div>
+        <div class="model-tier">Power Tier</div>
+        <div class="model-desc">Capable, nuanced output. Larger context windows, multi-modal vision support, and the most impressive local AI experience.</div>
+        <div class="model-chips">
+          <span class="model-chip">Llama 3.2 8B</span>
+          <span class="model-chip">Qwen 2.5 7B</span>
+          <span class="model-chip">Moondream 2</span>
+        </div>
+        <div class="model-compat">
+          <div class="compat-bar" style="width:95%;background:linear-gradient(90deg,var(--purple),var(--blue-l))"></div>
+          <span class="compat-label">Unlocked on 8GB+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCREENSHOTS ========== -->
+<div id="screenshots">
+  <div class="wrap" style="padding-bottom:0">
+    <div class="sec-label reveal">The App</div>
+    <h2 class="sec-title reveal d1">See it in <span class="g">action.</span></h2>
+    <p class="sec-desc reveal d2">Real screens from the app — every UI designed for clarity, speed, and everyday mobile use.</p>
+  </div>
+  <div class="scr-track-wrap" style="padding:3rem 0 6rem">
+    <div class="scr-track" id="scr-track">
+      <!-- duplicated for seamless loop -->
+      <div class="scr-frame"><img src="store-assets/images/screenshots/1-splash.png" alt="Splash" loading="lazy"><div class="scr-label">Launch Screen</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/2-chat.png" alt="Chat" loading="lazy"><div class="scr-label">Private Chat</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/3-documents.png" alt="Documents" loading="lazy"><div class="scr-label">Document Q&A</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/4-vision.png" alt="Vision" loading="lazy"><div class="scr-label">Vision AI</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/5-voice.png" alt="Voice" loading="lazy"><div class="scr-label">Voice Mode</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/6-models.png" alt="Models" loading="lazy"><div class="scr-label">AI Brain</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/7-privacy.png" alt="Privacy" loading="lazy"><div class="scr-label">Privacy Screen</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/8-settings.png" alt="Settings" loading="lazy"><div class="scr-label">Settings</div></div>
+      <!-- duplicate set for infinite scroll -->
+      <div class="scr-frame"><img src="store-assets/images/screenshots/1-splash.png" alt="Splash" loading="lazy"><div class="scr-label">Launch Screen</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/2-chat.png" alt="Chat" loading="lazy"><div class="scr-label">Private Chat</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/3-documents.png" alt="Documents" loading="lazy"><div class="scr-label">Document Q&A</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/4-vision.png" alt="Vision" loading="lazy"><div class="scr-label">Vision AI</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/5-voice.png" alt="Voice" loading="lazy"><div class="scr-label">Voice Mode</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/6-models.png" alt="Models" loading="lazy"><div class="scr-label">AI Brain</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/7-privacy.png" alt="Privacy" loading="lazy"><div class="scr-label">Privacy Screen</div></div>
+      <div class="scr-frame"><img src="store-assets/images/screenshots/8-settings.png" alt="Settings" loading="lazy"><div class="scr-label">Settings</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== AUDIENCE ========== -->
+<div id="audience">
+  <div class="wrap">
+    <div class="sec-label reveal">Who It's For</div>
+    <h2 class="sec-title reveal d1">Built for anyone who thinks <span class="g">their AI should be theirs.</span></h2>
+    <div class="audience-grid">
+      <div class="aud-card reveal">
+        <span class="aud-emoji">🎓</span>
+        <div>
+          <div class="aud-h3">Students</div>
+          <p class="aud-p">A private study assistant that analyses your notes, explains concepts, and works in the library — no Wi-Fi needed, no data leaving your device.</p>
+        </div>
+      </div>
+      <div class="aud-card reveal d1">
+        <span class="aud-emoji">💼</span>
+        <div>
+          <div class="aud-h3">Professionals</div>
+          <p class="aud-p">Review sensitive documents, draft reports, and get AI assistance on confidential material — with zero risk of cloud data exposure.</p>
+        </div>
+      </div>
+      <div class="aud-card reveal d2">
+        <span class="aud-emoji">🚀</span>
+        <div>
+          <div class="aud-h3">Founders &amp; Builders</div>
+          <p class="aud-p">Portable brainstorming and writing support that works in coffee shops, flights, and anywhere without reliable internet.</p>
+        </div>
+      </div>
+      <div class="aud-card reveal d3">
+        <span class="aud-emoji">✈️</span>
+        <div>
+          <div class="aud-h3">Travelers</div>
+          <p class="aud-p">Your full AI toolkit works offline in any country — no roaming data needed, no VPN workaround, no connectivity dependency.</p>
+        </div>
+      </div>
+      <div class="aud-card reveal d4">
+        <span class="aud-emoji">🔒</span>
+        <div>
+          <div class="aud-h3">Privacy-Conscious Users</div>
+          <p class="aud-p">Every prompt stays on your device. No accounts, no telemetry, no cloud inference. Your conversations belong to you — full stop.</p>
+        </div>
+      </div>
+      <div class="aud-card reveal d5">
+        <span class="aud-emoji">🔬</span>
+        <div>
+          <div class="aud-h3">Researchers</div>
+          <p class="aud-p">Analyse papers, query local document archives, and experiment with on-device model behaviour — all in one portable workspace.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== DOWNLOAD ========== -->
+<div id="download">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div class="cta-label">Available Now</div>
+      <h2 class="cta-title">
+        Your AI.<br>
+        <span style="background:linear-gradient(135deg,var(--blue-l),var(--purple-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">In your pocket.</span>
+      </h2>
+      <p class="cta-sub">Download NeuroPocket AI and experience truly private, offline-capable AI on your Android phone today.</p>
+      <div class="cta-btns">
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="btn-p">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M3.18 23.76c.3.17.64.24.99.24.45 0 .9-.13 1.28-.37l14.3-8.23a1.51 1.51 0 000-2.62L5.45.55C5.07.31 4.62.18 4.17.18c-.35 0-.69.07-.99.24A1.88 1.88 0 002.25 2v19.8c0 .76.42 1.47 1.17 1.88"/></svg>
+          Get on Google Play
+        </a>
+        <a href="https://www.linkedin.com/in/aignishant/" target="_blank" class="btn-s">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          DM for Early APK
+        </a>
+      </div>
+      <p class="cta-note">Free to download · Android 8.0+ · No account required</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="foot-logo">🧠 NeuroPocket AI</div>
+      <div class="foot-tagline">Offline AI · Private by design · Always in your pocket</div>
+    </div>
+    <div class="foot-links">
+      <a href="https://www.linkedin.com/in/aignishant/" target="_blank" class="foot-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/aignishant" target="_blank" class="foot-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://medium.com/@aignishant" target="_blank" class="foot-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+        Medium
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="foot-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.24.45 0 .9-.13 1.28-.37l14.3-8.23a1.51 1.51 0 000-2.62L5.45.55C5.07.31 4.62.18 4.17.18c-.35 0-.69.07-.99.24A1.88 1.88 0 002.25 2v19.8c0 .76.42 1.47 1.17 1.88"/></svg>
+        Play Store
+      </a>
+    </div>
+  </div>
+  <div class="foot-copy">
+    <span>© 2026 NeuroPocket AI · Built by <a href="https://www.linkedin.com/in/aignishant/" target="_blank">Nishant Gupta</a></span>
+    <span>Made with ❤️ for privacy-first AI · Powered by llama.rn</span>
+  </div>
+</footer>
+
+<script>
+/* ===== NEURAL NETWORK CANVAS ===== */
+(function(){
+  const canvas=document.getElementById('neural-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,nodes=[],animId;
+  const NODE_COUNT=70,MAX_DIST=160,FPS=40;
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;init()}
+  function init(){
+    nodes=[];
+    for(let i=0;i<NODE_COUNT;i++){
+      nodes.push({
+        x:Math.random()*W,y:Math.random()*H,
+        vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
+        r:Math.random()*2+1,
+        pulse:Math.random()*Math.PI*2
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const now=Date.now()/1000;
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+      const glow=.5+.5*Math.sin(now*1.2+n.pulse);
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(96,165,250,${.25+.2*glow})`;
+      ctx.fill();
+    });
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i],b=nodes[j];
+        const dx=a.x-b.x,dy=a.y-b.y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<MAX_DIST){
+          const alpha=(1-d/MAX_DIST)*.18;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=`rgba(139,92,246,${alpha})`;
+          ctx.lineWidth=.7;ctx.stroke();
+        }
+      }
+    }
+  }
+  let last=0;
+  function loop(ts){
+    animId=requestAnimationFrame(loop);
+    if(ts-last<1000/FPS)return;
+    last=ts;draw();
+  }
+  window.addEventListener('resize',resize);
+  resize();loop(0);
+})();
+
+/* ===== NAV SCROLL ===== */
+(function(){
+  const nav=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',window.scrollY>30);
+  },{passive:true});
+})();
+
+/* ===== SCROLL REVEAL ===== */
+(function(){
+  const els=document.querySelectorAll('.reveal');
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
+  },{threshold:.12});
+  els.forEach(el=>io.observe(el));
+})();
+
+/* ===== COUNTER ANIMATION ===== */
+(function(){
+  function animateCount(el){
+    const target=parseInt(el.dataset.target||el.textContent);
+    const suffix=el.dataset.suffix||'+';
+    const dur=1600,step=20;
+    let current=0,t=0;
+    const interval=setInterval(()=>{
+      t+=step;
+      current=Math.min(Math.round(target*(t/dur)),target);
+      el.textContent=current+(current===target?suffix:'');
+      if(current>=target)clearInterval(interval);
+    },step);
+  }
+  const nums=document.querySelectorAll('.stat-num');
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){animateCount(e.target);io.unobserve(e.target)}
+    });
+  },{threshold:.5});
+  nums.forEach(n=>io.observe(n));
+})();
+
+/* ===== TURBO QUANT INTERACTIVE ===== */
+(function(){
+  const levels=[
+    {name:'Off',     mem:96, perf:38, qual:100, ico:'⚪',
+      txt:'<b>Off</b> — No compression. Full model precision. Requires maximum available RAM on your device.'},
+    {name:'Mild',    mem:80, perf:54, qual:97,  ico:'🟡',
+      txt:'<b>Mild</b> — Light KV-cache compression. Near-full quality with a noticeable RAM reduction. Recommended for 8GB devices.'},
+    {name:'Balanced',mem:62, perf:70, qual:92,  ico:'✅',
+      txt:'<b>Balanced</b> — Optimal for most devices. Fits larger models on 6GB RAM phones with near-full quality output.'},
+    {name:'Aggressive',mem:42,perf:84,qual:82, ico:'🔥',
+      txt:'<b>Aggressive</b> — Heavy compression. Runs capable models on mid-range 4–6GB devices. Slight quality trade-off.'},
+    {name:'Extreme', mem:25, perf:96, qual:70,  ico:'⚡',
+      txt:'<b>Extreme</b> — Maximum efficiency mode. Best for severely RAM-constrained devices. Use for speed over output fidelity.'}
+  ];
+  const btns=document.querySelectorAll('.tq-lvl');
+  const barMem=document.getElementById('bar-mem');
+  const barPerf=document.getElementById('bar-perf');
+  const barQual=document.getElementById('bar-qual');
+  const valMem=document.getElementById('val-mem');
+  const valPerf=document.getElementById('val-perf');
+  const valQual=document.getElementById('val-qual');
+  const resultTxt=document.getElementById('tq-result-txt');
+  const resultBox=document.getElementById('tq-result');
+
+  function setLevel(idx){
+    const l=levels[idx];
+    btns.forEach((b,i)=>b.classList.toggle('on',i===idx));
+    barMem.style.width=l.mem+'%';
+    barPerf.style.width=l.perf+'%';
+    barQual.style.width=l.qual+'%';
+    valMem.textContent=l.mem+'%';
+    valPerf.textContent=l.perf+'%';
+    valQual.textContent=l.qual+'%';
+    resultTxt.innerHTML=l.ico+' '+l.txt;
+    // colour the result box
+    if(idx<=1){resultBox.style.borderColor='rgba(6,214,160,.18)';resultBox.style.background='rgba(6,214,160,.06)'}
+    else if(idx===2){resultBox.style.borderColor='rgba(6,214,160,.18)';resultBox.style.background='rgba(6,214,160,.06)'}
+    else if(idx===3){resultBox.style.borderColor='rgba(251,146,60,.2)';resultBox.style.background='rgba(251,146,60,.06)'}
+    else{resultBox.style.borderColor='rgba(139,92,246,.25)';resultBox.style.background='rgba(139,92,246,.07)'}
+  }
+
+  btns.forEach((btn,i)=>btn.addEventListener('click',()=>setLevel(i)));
+  setLevel(2); // default balanced
+})();
+
+/* ===== PHONE MOUSE TILT ===== */
+(function(){
+  const wrap=document.querySelector('.phone-wrap');
+  if(!wrap)return;
+  document.addEventListener('mousemove',e=>{
+    const cx=window.innerWidth/2,cy=window.innerHeight/2;
+    const dx=(e.clientX-cx)/cx,dy=(e.clientY-cy)/cy;
+    wrap.style.transform=`perspective(1000px) rotateY(${-10+dx*5}deg) rotateX(${4-dy*3}deg)`;
+  },{passive:true});
+})();
+
+/* ===== SMOOTH SCROLL FOR NAV ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+</script>
+</body>
+</html>
