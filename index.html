@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="NeuroPocket AI — Offline AI assistant for Android with TurboQuant memory optimization. Private, powerful, always available.">
+<meta name="description" content="NeuroPocket AI — Offline AI assistant for Android. Private chat, Vision AI, Voice Studio, Document Q&A, Advanced RAG — 100% offline, no cloud required.">
 <meta property="og:title" content="NeuroPocket AI — Offline AI in Your Pocket">
-<meta property="og:description" content="TurboQuant-powered on-device AI. Chat, documents, vision, voice — 100% private, no cloud required.">
+<meta property="og:description" content="TurboQuant-powered on-device AI. Vision AI, Voice Studio, Document Q&A, Advanced RAG — 100% private, no cloud required.">
 <title>NeuroPocket AI — Offline AI in Your Pocket</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -406,6 +406,94 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
 .foot-copy a{color:var(--faint);transition:color .2s}
 .foot-copy a:hover{color:var(--blue-l)}
 
+/* ===== PRICING ===== */
+#pricing{position:relative;overflow:hidden}
+#pricing::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:1000px;height:700px;background:radial-gradient(ellipse,rgba(59,130,246,.07) 0%,transparent 65%);pointer-events:none}
+.pricing-header{text-align:center;margin-bottom:3.5rem}
+.pricing-header .sec-label{justify-content:center}
+.pricing-header .sec-label::before{display:none}
+.pricing-header .sec-desc{margin:0 auto}
+.pricing-toggle{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:1.75rem}
+.pricing-toggle-label{font-size:.82rem;color:var(--muted);font-weight:500}
+.pricing-toggle-label.active{color:var(--text);font-weight:700}
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:1.25rem;
+  align-items:stretch
+}
+.price-card{
+  border-radius:22px;border:1px solid var(--border);
+  background:var(--card);padding:2rem 1.6rem;
+  display:flex;flex-direction:column;
+  transition:all var(--tr);position:relative;overflow:hidden
+}
+.price-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,.04) 0%,transparent 55%);opacity:0;transition:opacity var(--tr)}
+.price-card:hover{border-color:rgba(59,130,246,.28);transform:translateY(-6px);box-shadow:0 26px 60px rgba(0,0,0,.28)}
+.price-card:hover::after{opacity:1}
+.price-card.featured{
+  background:linear-gradient(160deg,rgba(59,130,246,.1) 0%,rgba(139,92,246,.1) 100%);
+  border-color:rgba(59,130,246,.38);
+  box-shadow:0 20px 56px rgba(59,130,246,.14),0 0 0 1px rgba(59,130,246,.1)
+}
+.price-card.featured:hover{transform:translateY(-8px);box-shadow:0 34px 80px rgba(59,130,246,.22),0 0 0 1px rgba(59,130,246,.15)}
+.price-best{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem 1rem;border-radius:0 0 10px 10px;white-space:nowrap
+}
+.price-plan-name{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem;margin-top:.25rem}
+.price-plan-name.f-blue{color:var(--blue-l)}
+.price-plan-name.f-purple{color:#c4b5fd}
+.price-plan-name.f-teal{color:var(--teal)}
+.price-amount{font-size:2.6rem;font-weight:900;line-height:1;letter-spacing:-.04em;margin-bottom:.25rem}
+.price-amount.g{background:linear-gradient(135deg,var(--blue-l),var(--purple-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.price-period{font-size:.8rem;color:var(--muted);margin-bottom:.5rem;font-weight:500}
+.price-save{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:.2rem .65rem;border-radius:100px;margin-bottom:1.4rem
+}
+.price-save.green{background:rgba(6,214,160,.12);color:var(--teal);border:1px solid rgba(6,214,160,.22)}
+.price-save.blue{background:rgba(59,130,246,.12);color:var(--blue-l);border:1px solid rgba(59,130,246,.22)}
+.price-divider{height:1px;background:var(--border);margin:1.1rem 0}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.65rem;flex:1}
+.price-feature{display:flex;align-items:flex-start;gap:.65rem;font-size:.82rem;color:var(--muted);line-height:1.45}
+.price-feature-check{width:16px;height:16px;border-radius:50%;background:rgba(6,214,160,.15);border:1px solid rgba(6,214,160,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.price-feature-check svg{width:9px;height:9px;color:var(--teal)}
+.price-feature-x{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.price-feature-x svg{width:9px;height:9px;color:var(--faint)}
+.price-feature.active{color:var(--text)}
+.price-cta{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  width:100%;padding:.8rem 1rem;border-radius:12px;
+  font-size:.875rem;font-weight:700;margin-top:1.5rem;
+  transition:all .25s;border:1px solid transparent;cursor:pointer;text-decoration:none
+}
+.price-cta.primary{
+  background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;
+  box-shadow:0 6px 22px var(--blue-g)
+}
+.price-cta.primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--blue-g)}
+.price-cta.outline{
+  background:transparent;color:var(--muted);
+  border-color:var(--border)
+}
+.price-cta.outline:hover{border-color:var(--blue);color:var(--blue-l);background:rgba(59,130,246,.06)}
+.pricing-note{
+  text-align:center;margin-top:2.5rem;
+  font-size:.8rem;color:var(--faint);line-height:1.65
+}
+.pricing-note a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.pricing-note a:hover{color:var(--blue-l)}
+.pricing-faq{margin-top:4rem}
+.pricing-faq-title{font-size:1.1rem;font-weight:800;text-align:center;margin-bottom:2rem;letter-spacing:-.02em}
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.faq-item{padding:1.4rem 1.6rem;border-radius:16px;border:1px solid var(--border);background:var(--card)}
+.faq-q{font-size:.88rem;font-weight:700;margin-bottom:.45rem}
+.faq-a{font-size:.8rem;color:var(--muted);line-height:1.6}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
@@ -424,6 +512,8 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   .how-steps::before{display:none}
   .phones-showcase,.phones-row2{grid-template-columns:repeat(2,1fr)}
   .phones-showcase .phone-card:nth-child(2),.phones-showcase .phone-card:nth-child(5),.phones-row2 .phone-card:nth-child(2){transform:none}
+  .pricing-grid{grid-template-columns:repeat(3,1fr)}
+  .faq-grid{grid-template-columns:1fr}
 }
 @media(max-width:720px){
   .n-links{display:none}
@@ -437,14 +527,133 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   .foot-copy{flex-direction:column;text-align:center}
   .phones-showcase,.phones-row2{grid-template-columns:repeat(2,1fr);gap:1.5rem}
   .phone-frame{width:140px}
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
   .phones-showcase,.phones-row2{grid-template-columns:repeat(2,1fr);gap:1rem}
   .phone-frame{width:130px}
 }
+
+/* ===== AMBIENT ORBS ===== */
+.amb-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(80px);will-change:transform}
+.amb-orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(139,92,246,.06),transparent 70%);top:-10%;left:-8%;animation:orb-drift-1 18s ease-in-out infinite}
+.amb-orb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.07),transparent 70%);bottom:-12%;right:-6%;animation:orb-drift-2 22s ease-in-out infinite}
+.amb-orb-3{width:400px;height:400px;background:radial-gradient(circle,rgba(6,214,160,.04),transparent 70%);top:35%;right:5%;animation:orb-drift-3 25s ease-in-out infinite}
+@keyframes orb-drift-1{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(6%,5%) scale(1.06)}50%{transform:translate(3%,10%) scale(.96)}75%{transform:translate(-4%,4%) scale(1.03)}}
+@keyframes orb-drift-2{0%,100%{transform:translate(0,0) scale(1)}30%{transform:translate(-5%,-6%) scale(1.05)}60%{transform:translate(-9%,-3%) scale(.94)}80%{transform:translate(-2%,-8%) scale(1.04)}}
+@keyframes orb-drift-3{0%,100%{transform:translate(0,0) scale(1)}20%{transform:translate(4%,6%) scale(1.08)}55%{transform:translate(-3%,9%) scale(.96)}80%{transform:translate(5%,2%) scale(1.02)}}
+
+/* ===== RADAR CHART SECTION ===== */
+#benchmark{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,rgba(7,13,26,.95) 100%)}
+.bench-header{text-align:center;margin-bottom:3rem}
+.bench-header .sec-label{justify-content:center}
+.bench-header .sec-label::before{display:none}
+.bench-header .sec-desc{margin:0 auto}
+.radar-glass{
+  max-width:700px;margin:0 auto;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(139,92,246,.18);
+  border-radius:24px;padding:2.5rem 2rem;
+  box-shadow:0 24px 72px rgba(0,0,0,.35);
+  position:relative;overflow:hidden
+}
+.radar-glass::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(139,92,246,.1),transparent 70%);pointer-events:none}
+.radar-canvas-wrap{position:relative;width:100%;max-width:480px;margin:0 auto}
+.radar-toggles{display:flex;justify-content:center;gap:1rem;margin-top:1.75rem;flex-wrap:wrap}
+.radar-toggle-btn{
+  display:flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:100px;
+  border:1px solid var(--border);background:var(--card);
+  color:var(--muted);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .25s;
+  font-family:var(--font)
+}
+.radar-toggle-btn .rt-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.radar-toggle-btn.active{color:var(--text);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06)}
+.radar-toggle-btn:hover{border-color:rgba(255,255,255,.18)}
+
+/* ===== COMPARISON TABLE ===== */
+#comparison{position:relative;overflow:hidden}
+#comparison::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(6,214,160,.05) 0%,transparent 65%);pointer-events:none}
+.comp-header{text-align:center;margin-bottom:3rem}
+.comp-header .sec-label{justify-content:center}
+.comp-header .sec-label::before{display:none}
+.comp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comp-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:18px;overflow:hidden;border:1px solid var(--border)}
+.comp-table th,.comp-table td{padding:.9rem 1.4rem;font-size:.875rem;text-align:center}
+.comp-table th:first-child,.comp-table td:first-child{text-align:left}
+.comp-table thead th{background:rgba(255,255,255,.03);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)}
+.comp-table thead th:nth-child(3){
+  background:rgba(6,214,160,.04);color:var(--teal);
+  position:relative;
+  background-image:linear-gradient(var(--bg2),var(--bg2)),linear-gradient(90deg,var(--teal),var(--blue),var(--purple),var(--teal));
+  background-origin:border-box;background-clip:padding-box,border-box;
+  border:2px solid transparent;
+  animation:grad-border 4s linear infinite
+}
+@keyframes grad-border{0%{background-position:0 0,0 0}100%{background-position:0 0,200% 0}}
+.comp-table tbody tr{border-bottom:1px solid var(--border);transition:background .2s;opacity:0;transform:translateX(-22px)}
+.comp-table tbody tr.row-vis{opacity:1;transform:translateX(0);transition:opacity .5s ease,transform .5s ease}
+.comp-table tbody tr:last-child{border-bottom:none}
+.comp-table tbody tr:hover{background:rgba(255,255,255,.025)}
+.comp-table td:nth-child(3){background:rgba(6,214,160,.02)}
+.comp-check{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.28)}
+.comp-check svg{width:11px;height:11px;color:var(--teal)}
+.comp-check.pulse{animation:check-pulse 2.4s ease-in-out infinite}
+@keyframes check-pulse{0%,100%{box-shadow:0 0 0 0 rgba(6,214,160,.35)}60%{box-shadow:0 0 0 5px rgba(6,214,160,0)}}
+.comp-cross{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+.comp-cross svg{width:11px;height:11px;color:var(--faint)}
+.comp-feature-name{font-weight:500;color:var(--text);font-size:.85rem}
+.comp-free-val{color:var(--muted)}
+
+/* ===== RAM VISUALIZER ===== */
+.ram-viz{margin-top:1.5rem;padding:1.25rem 1rem;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06)}
+.ram-viz-title{font-size:.72rem;font-family:var(--mono);color:var(--muted);margin-bottom:.85rem;letter-spacing:.08em;text-transform:uppercase}
+.ram-bar-track{height:32px;border-radius:8px;overflow:hidden;display:flex;background:rgba(0,0,0,.3)}
+.ram-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-family:var(--mono);font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;transition:width .5s ease;min-width:0;will-change:width}
+.ram-seg-model{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.ram-seg-sys{background:linear-gradient(90deg,#8b5cf6,#a78bfa)}
+.ram-seg-free{background:linear-gradient(90deg,#06d6a0,#34d399)}
+.ram-legend{display:flex;gap:1.1rem;margin-top:.7rem;flex-wrap:wrap}
+.ram-leg-item{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--muted);font-family:var(--mono)}
+.ram-leg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+
+/* ===== MICRO-INTERACTIONS ===== */
+/* Ripple on CTA buttons */
+.btn-p,.btn-s,.n-cta,.price-cta{position:relative;overflow:hidden}
+.ripple-wave{position:absolute;border-radius:50%;transform:scale(0);animation:ripple-anim .55s linear;background:rgba(255,255,255,.18);pointer-events:none}
+@keyframes ripple-anim{to{transform:scale(4);opacity:0}}
+/* Nav logo rotate */
+.n-logo-box{transition:transform .6s cubic-bezier(.4,0,.2,1)}
+.n-logo:hover .n-logo-box{transform:rotate(360deg)}
+/* Feature card animated top-border */
+.feat-card::before{content:'';position:absolute;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:2px 2px 0 0;transition:width .4s ease}
+.feat-card:hover::before{width:100%}
+/* Phone mockup screen hover lift */
+.hero-phone-wrap:hover .hero-pf-screen .hero-pf-img{transform:translateY(-4px);transition:transform .3s ease}
+.hero-pf-screen .hero-pf-img{transition:transform .3s ease}
+
+/* ===== ENHANCED REVEAL & STAGGER ===== */
+.reveal-fan{opacity:0;transform:translateY(32px) scale(.97);transition:opacity .65s ease,transform .65s ease}
+.reveal-fan.vis{opacity:1;transform:translateY(0) scale(1)}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .6s ease,transform .6s ease}
+.reveal-scale.vis{opacity:1;transform:scale(1)}
+.stagger-1{transition-delay:.08s}.stagger-2{transition-delay:.16s}.stagger-3{transition-delay:.24s}
+.stagger-4{transition-delay:.32s}.stagger-5{transition-delay:.4s}.stagger-6{transition-delay:.48s}
+.stagger-7{transition-delay:.56s}.stagger-8{transition-delay:.64s}.stagger-9{transition-delay:.72s}
+.stagger-10{transition-delay:.8s}
+
+/* reduced-motion overrides */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal,.reveal-fan,.reveal-scale{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
+
+<!-- AMBIENT ORBS -->
+<div class="amb-orb amb-orb-1" aria-hidden="true"></div>
+<div class="amb-orb amb-orb-2" aria-hidden="true"></div>
+<div class="amb-orb amb-orb-3" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav id="navbar">
@@ -529,7 +738,7 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
 <div id="turbo">
   <div class="wrap">
     <div class="sec-label reveal">Key Technology</div>
-    <h2 class="sec-title reveal d1">Meet <span class="g">TurboQuant&#8482;</span><br>The engine behind the pocket.</h2>
+    <h2 class="sec-title reveal d1">Meet <span class="g">TurboQuant&#8482;</span><br>More model. Less memory. Zero compromise.</h2>
     <p class="sec-desc reveal d2">Inspired by research in KV-cache compression and efficient quantization — TurboQuant lets NeuroPocket AI fit <strong style="color:var(--blue-l)">bigger, smarter models</strong> into the limited RAM of a real phone, without quality collapse.</p>
     <div class="tq-grid">
       <div class="tq-text">
@@ -589,20 +798,62 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
           <span class="tq-result-ico">✅</span>
           <span class="tq-result-txt" id="tq-result-txt"><b>Balanced</b> — Optimal for most devices. Fits larger models on 6GB RAM phones with near-full quality output.</span>
         </div>
+        <!-- RAM VISUALIZER -->
+        <div class="ram-viz">
+          <div class="ram-viz-title">📊 Phone RAM Breakdown — 6 GB Total</div>
+          <div class="ram-bar-track">
+            <div class="ram-seg ram-seg-model" id="ram-model" style="width:33.3%">Model</div>
+            <div class="ram-seg ram-seg-sys" id="ram-sys" style="width:30%">System</div>
+            <div class="ram-seg ram-seg-free" id="ram-free" style="width:36.7%">Free</div>
+          </div>
+          <div class="ram-legend">
+            <span class="ram-leg-item"><span class="ram-leg-dot" style="background:#3b82f6"></span><span id="ram-model-lbl">Model: 2.0 GB</span></span>
+            <span class="ram-leg-item"><span class="ram-leg-dot" style="background:#8b5cf6"></span><span>System: 1.8 GB</span></span>
+            <span class="ram-leg-item"><span class="ram-leg-dot" style="background:#06d6a0"></span><span id="ram-free-lbl">Free: 2.2 GB</span></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- BENCHMARK — RADAR CHART -->
+<div id="benchmark">
+  <div class="wrap">
+    <div class="bench-header">
+      <div class="sec-label reveal">Performance Analysis</div>
+      <h2 class="sec-title reveal d1">Model Performance <span class="g">Benchmark</span></h2>
+      <p class="sec-desc reveal d2">How TurboQuant compression levels compare across five key performance dimensions — tested on real Android hardware.</p>
+    </div>
+    <div class="radar-glass reveal d2">
+      <div class="radar-canvas-wrap">
+        <canvas id="radar-chart" height="420"></canvas>
+      </div>
+      <div class="radar-toggles">
+        <button class="radar-toggle-btn active" data-ds="0">
+          <span class="rt-dot" style="background:#06d6a0"></span>TurboQuant ON
+        </button>
+        <button class="radar-toggle-btn active" data-ds="1">
+          <span class="rt-dot" style="background:#3b82f6"></span>Standard Quantization
+        </button>
+        <button class="radar-toggle-btn active" data-ds="2">
+          <span class="rt-dot" style="background:#8b5cf6"></span>No Compression
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- FEATURES -->
 <div id="features">
   <div class="wrap">
-    <div class="sec-label reveal">What It Does</div>
-    <h2 class="sec-title reveal d1">One app. <span class="g">Five AI superpowers.</span></h2>
-    <p class="sec-desc reveal d2">Not a demo. Not a proof of concept. A real, everyday AI workspace built for Android — with every core feature running locally on your device.</p>
+    <div class="sec-label reveal">Capabilities</div>
+    <h2 class="sec-title reveal d1">Everything you need.<br><span class="g">Nothing sent to the cloud.</span></h2>
+    <p class="sec-desc reveal d2">Five fully offline AI modes in a single app — built for everyday use, not just demos. Every feature runs entirely on your device. Your data never leaves.</p>
     <div class="feat-grid">
       <div class="feat-card reveal"><div class="feat-icon fi-b">💬</div><div class="feat-title">Private AI Chat</div><div class="feat-desc">Talk to a capable AI model directly on your phone for writing, brainstorming, Q&amp;A, and summarisation. No prompts leave your device — ever.</div></div>
-      <div class="feat-card reveal d1"><div class="feat-icon fi-p">📄</div><div class="feat-title">Document Q&amp;A</div><div class="feat-desc">Upload PDFs, TXTs, and CSVs and ask questions about them on-device. Your sensitive files never get uploaded to a server. Context-aware retrieval, built-in.</div></div>
+      <div class="feat-card reveal d1"><div class="feat-icon fi-p">📄</div><div class="feat-title">Document Q&amp;A</div><div class="feat-desc">Upload PDFs, TXTs, CSVs, and more — ask questions with PageIndex tree-based retrieval. Advanced RAG with multi-doc citations and section context. 100% on-device.</div></div>
       <div class="feat-card reveal d2"><div class="feat-icon fi-t">👁</div><div class="feat-title">Vision AI</div><div class="feat-desc">Capture an image or pick one from your gallery and get instant on-device analysis. Scene description, visual Q&amp;A, context extraction — all local.</div></div>
       <div class="feat-card reveal d3"><div class="feat-icon fi-k">🎙</div><div class="feat-title">Voice Studio</div><div class="feat-desc">Text-to-speech with speed and pitch control. Listen to AI responses hands-free. Voice-first interaction built for mobile accessibility and multitasking.</div></div>
       <div class="feat-card reveal d4"><div class="feat-icon fi-o">🧠</div><div class="feat-title">AI Brain</div><div class="feat-desc">The central model management hub. See active model, installed models, available downloads, and device-matched recommendations — no ML knowledge needed.</div></div>
@@ -614,8 +865,8 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
 <!-- HOW IT WORKS -->
 <div id="how">
   <div class="wrap">
-    <div class="sec-label reveal">Get Started</div>
-    <h2 class="sec-title reveal d1">Up and running <span class="g">in three steps.</span></h2>
+    <div class="sec-label reveal">Quick Setup</div>
+    <h2 class="sec-title reveal d1">Ready in minutes.<br><span class="g">Private for life.</span></h2>
     <div class="how-steps">
       <div class="how-step reveal"><div class="how-num">01</div><div class="how-title">Install &amp; Open</div><div class="how-desc">Download NeuroPocket AI from the Play Store. Open the app — no sign-in, no cloud account, no setup wall.</div></div>
       <div class="how-step reveal d2"><div class="how-num">02</div><div class="how-title">Choose Your Model</div><div class="how-desc">The AI Brain recommends the best model for your device's RAM. One tap to download — TurboQuant handles the rest.</div></div>
@@ -628,8 +879,8 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
 <div id="models">
   <div class="wrap">
     <div class="sec-label reveal">AI Brain</div>
-    <h2 class="sec-title reveal d1">Right model. <span class="g">Right device. Every time.</span></h2>
-    <p class="sec-desc reveal d2">NeuroPocket AI profiles your device and recommends models that actually run well — no trial and error, no out-of-memory crashes.</p>
+    <h2 class="sec-title reveal d1">Smart model matching.<br><span class="g">Zero guesswork.</span></h2>
+    <p class="sec-desc reveal d2">NeuroPocket AI profiles your device RAM and recommends models guaranteed to run well — no out-of-memory crashes, no trial and error. Just tap and go.</p>
     <div class="models-grid">
       <div class="model-card reveal">
         <span class="mc-badge mc-b-teal">Entry</span>
@@ -658,13 +909,14 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
     </div>
   </div>
 </div>
+
 <!-- SCREENSHOTS — REAL PHONE MOCKUPS -->
 <div id="screenshots">
   <div class="wrap">
     <div class="scr-intro">
-      <div class="sec-label reveal">The Real App</div>
-      <h2 class="sec-title reveal d1">Six screens. <span class="g">One powerful app.</span></h2>
-      <p class="sec-desc reveal d2">Real screenshots from NeuroPocket AI — every screen designed for clarity, speed, and everyday mobile use. What you see is what you get.</p>
+      <div class="sec-label reveal">Live Preview</div>
+      <h2 class="sec-title reveal d1">Designed for precision.<br><span class="g">Built for real use.</span></h2>
+      <p class="sec-desc reveal d2">Actual screenshots from NeuroPocket AI — every screen crafted for speed, clarity, and everyday mobile use. No marketing renders. What you see is exactly what runs on your device.</p>
     </div>
     <div class="phones-showcase">
       <div class="phone-card reveal ">
@@ -725,7 +977,7 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
 <div id="audience">
   <div class="wrap">
     <div class="sec-label reveal">Who It&#8217;s For</div>
-    <h2 class="sec-title reveal d1">Built for anyone who thinks <span class="g">their AI should be theirs.</span></h2>
+    <h2 class="sec-title reveal d1">Your data. Your device.<br><span class="g">Your AI.</span></h2>
     <div class="audience-grid">
       <div class="aud-card reveal"><span class="aud-emoji">🎓</span><div><div class="aud-h3">Students</div><p class="aud-p">A private study assistant that analyses your notes, explains concepts, and works in the library — no Wi-Fi needed, no data leaving your device.</p></div></div>
       <div class="aud-card reveal d1"><span class="aud-emoji">💼</span><div><div class="aud-h3">Professionals</div><p class="aud-p">Review sensitive documents, draft reports, and get AI assistance on confidential material — with zero risk of cloud data exposure.</p></div></div>
@@ -737,13 +989,14 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   </div>
 </div>
 
+
 <!-- DOWNLOAD -->
 <div id="download">
   <div class="wrap">
     <div class="cta-box reveal">
-      <div class="cta-label">Available Now</div>
-      <h2 class="cta-title">Your AI.<br><span style="background:linear-gradient(135deg,var(--blue-l),var(--purple-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">In your pocket.</span></h2>
-      <p class="cta-sub">Download NeuroPocket AI and experience truly private, offline-capable AI on your Android phone today.</p>
+      <div class="cta-label">Available on Google Play</div>
+      <h2 class="cta-title">The most powerful AI<br><span style="background:linear-gradient(135deg,var(--blue-l),var(--purple-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">on your Android. Offline.</span></h2>
+      <p class="cta-sub">Download NeuroPocket AI and run state-of-the-art language models entirely on your device — no cloud, no subscription required, no data ever leaving your phone.</p>
       <div class="cta-btns">
         <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="btn-p">
           <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M3.18 23.76c.3.17.64.24.99.24.45 0 .9-.13 1.28-.37l14.3-8.23a1.51 1.51 0 000-2.62L5.45.55C5.07.31 4.62.18 4.17.18c-.35 0-.69.07-.99.24A1.88 1.88 0 002.25 2v19.8c0 .76.42 1.47 1.17 1.88"/></svg>
@@ -791,38 +1044,89 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
 <script>
-/* NEURAL CANVAS */
+/* ===== NEURAL CANVAS — GPU-OPTIMISED ===== */
 (function(){
   const c=document.getElementById('neural-canvas'),ctx=c.getContext('2d');
-  let W,H,nodes=[];
-  const N=65,D=155,FPS=38;
+  let W,H,nodes=[],mouse={x:-999,y:-999},burstPool=[];
+  const N=65,D=155,REPEL_R=120,TARGET_FPS=60;
+  const FRAME_MS=1000/TARGET_FPS;
+  let lastTs=0;
+
+  /* pointer tracking */
+  c.style.pointerEvents='none'; /* hero canvas never blocks clicks */
+  window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY},{passive:true});
+  window.addEventListener('touchmove',e=>{if(e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY}},{passive:true});
+
+  /* click burst */
+  window.addEventListener('click',e=>{
+    for(let k=0;k<12;k++){
+      const ang=k*(Math.PI*2/12);const spd=1.4+Math.random()*1.8;
+      burstPool.push({x:e.clientX,y:e.clientY,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,life:1,r:.9+Math.random()*.7});
+    }
+  },{passive:true});
+
   function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;init()}
   function init(){
     nodes=[];
-    for(let i=0;i<N;i++) nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.32,vy:(Math.random()-.5)*.32,r:Math.random()*1.8+.8,p:Math.random()*Math.PI*2});
+    for(let i=0;i<N;i++)
+      nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.32,vy:(Math.random()-.5)*.32,r:Math.random()*1.8+.8,p:Math.random()*Math.PI*2,ox:0,oy:0});
   }
-  function draw(){
+
+  function draw(ts){
+    const dt=Math.min((ts-lastTs)/16,3); /* delta, capped at 3x slowdown */
     ctx.clearRect(0,0,W,H);
-    const t=Date.now()/1000;
+    const t=ts/1000;
+
+    /* update nodes with mouse repulsion */
     nodes.forEach(n=>{
-      n.x+=n.vx;n.y+=n.vy;
+      /* repulsion */
+      const dx=n.x-mouse.x,dy=n.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<REPEL_R&&d>0){const f=(REPEL_R-d)/REPEL_R;n.ox+=dx/d*f*.8;n.oy+=dy/d*f*.8;}
+      n.ox*=.88;n.oy*=.88; /* dampen offset */
+      const rx=n.x+n.ox*dt,ry=n.y+n.oy*dt;
+      n.x+=n.vx*dt;n.y+=n.vy*dt;
       if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
-      const g=.5+.5*Math.sin(t*1.1+n.p);
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(96,165,250,${.2+.2*g})`;ctx.fill();
+
+      /* color-shift: blue→purple by cursor proximity */
+      const prox=Math.max(0,1-(d/(REPEL_R*2)));
+      const r=Math.round(59+(139-59)*prox),g=Math.round(130+(92-130)*prox),b=Math.round(246);
+      const glow=.5+.5*Math.sin(t*1.1+n.p);
+      ctx.beginPath();ctx.arc(rx,ry,n.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},${.2+.2*glow})`;ctx.fill();
     });
+
+    /* connection lines with sine-wave opacity pulse */
     for(let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++){
-      const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      const a=nodes[i],b=nodes[j];
+      const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
       if(d<D){
+        const distFade=(1-d/D);
+        const pulse=.5+.5*Math.sin(t*1.7+(i+j)*.4);
         ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
-        ctx.strokeStyle=`rgba(139,92,246,${(1-d/D)*.15})`;ctx.lineWidth=.6;ctx.stroke();
+        ctx.strokeStyle=`rgba(139,92,246,${distFade*pulse*.22})`;ctx.lineWidth=.65;ctx.stroke();
       }
     }
+
+    /* burst particles */
+    for(let k=burstPool.length-1;k>=0;k--){
+      const p=burstPool[k];
+      p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=.025*dt;
+      if(p.life<=0){burstPool.splice(k,1);continue;}
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(96,165,250,${p.life*.7})`;ctx.fill();
+    }
   }
-  let last=0;
-  function loop(ts){requestAnimationFrame(loop);if(ts-last<1000/FPS)return;last=ts;draw()}
-  window.addEventListener('resize',resize,{passive:true});resize();loop(0);
+
+  let rafId;
+  function loop(ts){
+    rafId=requestAnimationFrame(loop);
+    if(ts-lastTs<FRAME_MS)return;
+    draw(ts);lastTs=ts;
+  }
+  window.addEventListener('resize',resize,{passive:true});
+  resize();requestAnimationFrame(loop);
 })();
 
 /* NAV SCROLL */
@@ -831,13 +1135,51 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
 })();
 
-/* SCROLL REVEAL */
+/* ===== UNIFIED INTERSECTION OBSERVER — SCROLL ANIMATIONS ===== */
 (function(){
-  const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target)}})  ,{threshold:.1});
+  /* Single observer handles all animation classes */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(x=>{
+      if(x.isIntersecting){
+        x.target.classList.add('vis');
+        /* don't unobserve — allow reset on scroll-up */
+      } else {
+        /* reset so animations replay when scrolled back into view */
+        if(x.target.classList.contains('reveal')||x.target.classList.contains('reveal-fan')||x.target.classList.contains('reveal-scale'))
+          x.target.classList.remove('vis');
+      }
+    });
+  },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+
+  /* Standard reveal */
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* Fan-in cards with stagger — feature cards */
+  document.querySelectorAll('.feat-card').forEach((el,i)=>{
+    el.classList.add('reveal-fan','stagger-'+(i%6+1));
+    io.observe(el);
+  });
+
+  /* Scale-in — pricing cards */
+  document.querySelectorAll('.price-card').forEach((el,i)=>{
+    el.classList.add('reveal-scale','stagger-'+(i%5+1));
+    io.observe(el);
+  });
+
+  /* Comparison table rows staggered slide */
+  document.querySelectorAll('#comp-tbody tr').forEach((tr,i)=>{
+    tr.style.transitionDelay=(i*60)+'ms';
+    const rowObs=new IntersectionObserver(ent=>{
+      ent.forEach(e=>{
+        if(e.isIntersecting) tr.classList.add('row-vis');
+        else tr.classList.remove('row-vis');
+      });
+    },{threshold:.1});
+    rowObs.observe(tr);
+  });
 })();
 
-/* COUNTERS */
+/* ===== COUNTERS — simultaneous with slide-up ===== */
 (function(){
   function go(el){
     const target=parseInt(el.dataset.target||el.textContent);
@@ -878,6 +1220,112 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   }
   btns.forEach((b,i)=>b.addEventListener('click',()=>set(i)));
   set(2);
+})();
+
+/* ===== RAM VISUALIZER — synced with TQ level ===== */
+(function(){
+  /* model RAM per TQ level (GB), system fixed 1.8 GB, total 6 GB */
+  const MODEL_RAM=[4.2,3.2,2.0,1.4,0.9];
+  const SYS=1.8,TOTAL=6;
+
+  function updateRAM(lvl){
+    const m=MODEL_RAM[lvl];
+    const f=Math.max(0,TOTAL-m-SYS);
+    const mp=(m/TOTAL*100).toFixed(1),sp=(SYS/TOTAL*100).toFixed(1),fp=(f/TOTAL*100).toFixed(1);
+    const mSeg=document.getElementById('ram-model'),fSeg=document.getElementById('ram-free');
+    if(!mSeg)return;
+    mSeg.style.width=mp+'%';
+    mSeg.textContent=m.toFixed(1)+'G';
+    document.getElementById('ram-sys').style.width=sp+'%';
+    fSeg.style.width=fp+'%';
+    fSeg.textContent=f.toFixed(1)+'G';
+    document.getElementById('ram-model-lbl').textContent='Model: '+m.toFixed(1)+' GB';
+    document.getElementById('ram-free-lbl').textContent='Free: '+f.toFixed(1)+' GB';
+  }
+
+  /* hook into existing TQ level buttons */
+  document.querySelectorAll('.tq-lvl').forEach((b,i)=>b.addEventListener('click',()=>updateRAM(i)));
+  updateRAM(2); /* default balanced */
+})();
+
+/* ===== RADAR CHART ===== */
+(function(){
+  function initRadar(){
+    const canvas=document.getElementById('radar-chart');
+    if(!canvas||typeof Chart==='undefined')return;
+    Chart.defaults.color='#94a3b8';
+    const labels=['Speed','Accuracy','RAM Efficiency','Battery Impact','Response Quality'];
+    const ds=[
+      {label:'TurboQuant ON',data:[92,88,95,90,87],borderColor:'#06d6a0',backgroundColor:'rgba(6,214,160,.12)',pointBackgroundColor:'#06d6a0',pointBorderColor:'#06d6a0',borderWidth:2,pointRadius:4,pointHoverRadius:6,hidden:false},
+      {label:'Standard Quantization',data:[72,80,70,75,82],borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.1)',pointBackgroundColor:'#3b82f6',pointBorderColor:'#3b82f6',borderWidth:2,pointRadius:4,pointHoverRadius:6,hidden:false},
+      {label:'No Compression',data:[55,95,38,52,95],borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,.09)',pointBackgroundColor:'#8b5cf6',pointBorderColor:'#8b5cf6',borderWidth:2,pointRadius:4,pointHoverRadius:6,hidden:false}
+    ];
+    const chart=new Chart(canvas,{
+      type:'radar',
+      data:{labels,datasets:ds},
+      options:{
+        responsive:true,maintainAspectRatio:true,
+        animation:{duration:900,easing:'easeInOutQuart'},
+        scales:{r:{
+          angleLines:{color:'rgba(255,255,255,.07)'},
+          grid:{color:'rgba(255,255,255,.07)'},
+          pointLabels:{color:'#94a3b8',font:{size:12,family:"'Inter',sans-serif",weight:'600'}},
+          ticks:{display:false,stepSize:20},
+          min:0,max:100,
+          backgroundColor:'rgba(4,8,15,0)'
+        }},
+        plugins:{
+          legend:{display:false},
+          tooltip:{backgroundColor:'rgba(7,13,26,.92)',borderColor:'rgba(255,255,255,.08)',borderWidth:1,titleColor:'#f1f5f9',bodyColor:'#94a3b8',padding:10}
+        }
+      }
+    });
+
+    /* IntersectionObserver to trigger animation on scroll */
+    const io=new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){chart.update();io.disconnect();}
+    },{threshold:.2});
+    io.observe(canvas);
+
+    /* toggle buttons */
+    document.querySelectorAll('.radar-toggle-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const idx=parseInt(btn.dataset.ds);
+        const meta=chart.getDatasetMeta(idx);
+        const hidden=!chart.data.datasets[idx].hidden;
+        chart.data.datasets[idx].hidden=hidden;
+        btn.classList.toggle('active',!hidden);
+        chart.update('active');
+      });
+    });
+  }
+
+  /* Wait for Chart.js to load (deferred script) */
+  if(typeof Chart!=='undefined') initRadar();
+  else {
+    const s=document.querySelector('script[src*="chart.umd"]');
+    if(s) s.addEventListener('load',initRadar);
+    else window.addEventListener('load',initRadar);
+  }
+})();
+
+/* ===== RIPPLE MICRO-INTERACTION ===== */
+(function(){
+  function addRipple(e){
+    const btn=e.currentTarget;
+    const rect=btn.getBoundingClientRect();
+    const size=Math.max(rect.width,rect.height)*2;
+    const x=e.clientX-rect.left-size/2;
+    const y=e.clientY-rect.top-size/2;
+    const ripple=document.createElement('span');
+    ripple.className='ripple-wave';
+    ripple.style.cssText=`width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
+    btn.appendChild(ripple);
+    setTimeout(()=>ripple.remove(),600);
+  }
+  document.querySelectorAll('.btn-p,.btn-s,.n-cta,.price-cta').forEach(b=>{
+    b.addEventListener('click',addRipple);
+  });
 })();
 
 /* PHONE TILT */
