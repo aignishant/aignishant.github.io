@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="NeuroPocket AI — Offline AI assistant for Android. Private chat, Vision AI, Voice Studio, Document Q&A, Advanced RAG — 100% offline, no cloud required.">
+<meta name="description" content="NeuroPocket AI — Offline AI assistant for Android. AI Chat, Vision AI, Voice Studio, Document Q&A, Advanced RAG — all free, 100% private, no cloud required.">
 <meta property="og:title" content="NeuroPocket AI — Offline AI in Your Pocket">
-<meta property="og:description" content="TurboQuant-powered on-device AI. Vision AI, Voice Studio, Document Q&A, Advanced RAG — 100% private, no cloud required.">
+<meta property="og:description" content="TurboQuant-powered on-device AI. Chat, Vision, Voice, Documents, RAG — all features free, 100% private, no cloud required."
 <title>NeuroPocket AI — Offline AI in Your Pocket</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,6 +247,7 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(4,8,15,.92)}
 .fi-k{background:rgba(244,114,182,.08);border-color:rgba(244,114,182,.22)}
 .fi-o{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.22)}
 .fi-i{background:rgba(99,102,241,.13);border-color:rgba(99,102,241,.28)}
+.fi-v{background:rgba(0,210,255,.1);border-color:rgba(0,210,255,.28)}
 .feat-title{font-size:.97rem;font-weight:700;margin-bottom:.45rem;position:relative;z-index:1}
 .feat-desc{font-size:.835rem;color:var(--muted);line-height:1.62;position:relative;z-index:1}
 
@@ -666,6 +667,9 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
     <li><a href="#features">Features</a></li>
     <li><a href="#models">Models</a></li>
     <li><a href="#screenshots">Screenshots</a></li>
+    <!-- PAYMENTS_DISABLED: Pricing nav link hidden
+    <li><a href="#pricing">Pricing</a></li>
+    -->
     <li><a href="#download">Download</a></li>
   </ul>
   <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="n-cta">
@@ -844,6 +848,81 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   </div>
 </div>
 
+<!-- PAYMENTS_DISABLED: Free vs Premium comparison table hidden — restore when billing is re-enabled -->
+<!-- FREE VS PREMIUM COMPARISON TABLE
+<div id="comparison">
+  <div class="wrap">
+    <div class="comp-header">
+      <div class="sec-label reveal">Plans at a Glance</div>
+      <h2 class="sec-title reveal d1">Free vs <span class="g">Premium</span></h2>
+      <p class="sec-desc reveal d2">Everything you need to know about what's included — no fine print, no surprises.</p>
+    </div>
+    <div class="comp-table-wrap reveal d2">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th style="width:42%">Feature</th>
+            <th style="width:22%">Free</th>
+            <th style="width:22%">Premium ✦</th>
+          </tr>
+        </thead>
+        <tbody id="comp-tbody">
+          <tr>
+            <td class="comp-feature-name">AI Chat</td>
+            <td class="comp-free-val"><span class="comp-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Max Model Size</td>
+            <td class="comp-free-val" style="font-size:.8rem;color:var(--muted)">Up to 1 GB</td>
+            <td style="font-size:.8rem;color:var(--teal);font-weight:700">8 GB+</td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Vision AI</td>
+            <td><span class="comp-cross"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Voice Studio</td>
+            <td><span class="comp-cross"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Document Q&amp;A</td>
+            <td><span class="comp-cross"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Advanced RAG</td>
+            <td><span class="comp-cross"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Offline Use</td>
+            <td class="comp-free-val"><span class="comp-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Cloud Sync</td>
+            <td><span class="comp-cross"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Priority Updates</td>
+            <td><span class="comp-cross"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span></td>
+            <td><span class="comp-check pulse"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span></td>
+          </tr>
+          <tr>
+            <td class="comp-feature-name">Max Context Window</td>
+            <td class="comp-free-val" style="font-size:.8rem;color:var(--muted)">2K tokens</td>
+            <td style="font-size:.8rem;color:var(--teal);font-weight:700">128K tokens</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+-->
 
 <!-- FEATURES -->
 <div id="features">
@@ -853,11 +932,12 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
     <p class="sec-desc reveal d2">Five fully offline AI modes in a single app — built for everyday use, not just demos. Every feature runs entirely on your device. Your data never leaves.</p>
     <div class="feat-grid">
       <div class="feat-card reveal"><div class="feat-icon fi-b">💬</div><div class="feat-title">Private AI Chat</div><div class="feat-desc">Talk to a capable AI model directly on your phone for writing, brainstorming, Q&amp;A, and summarisation. No prompts leave your device — ever.</div></div>
-      <div class="feat-card reveal d1"><div class="feat-icon fi-p">📄</div><div class="feat-title">Document Q&amp;A</div><div class="feat-desc">Upload PDFs, TXTs, CSVs, and more — ask questions with PageIndex tree-based retrieval. Advanced RAG with multi-doc citations and section context. 100% on-device.</div></div>
-      <div class="feat-card reveal d2"><div class="feat-icon fi-t">👁</div><div class="feat-title">Vision AI</div><div class="feat-desc">Capture an image or pick one from your gallery and get instant on-device analysis. Scene description, visual Q&amp;A, context extraction — all local.</div></div>
-      <div class="feat-card reveal d3"><div class="feat-icon fi-k">🎙</div><div class="feat-title">Voice Studio</div><div class="feat-desc">Text-to-speech with speed and pitch control. Listen to AI responses hands-free. Voice-first interaction built for mobile accessibility and multitasking.</div></div>
-      <div class="feat-card reveal d4"><div class="feat-icon fi-o">🧠</div><div class="feat-title">AI Brain</div><div class="feat-desc">The central model management hub. See active model, installed models, available downloads, and device-matched recommendations — no ML knowledge needed.</div></div>
-      <div class="feat-card reveal d5"><div class="feat-icon fi-i">🔒</div><div class="feat-title">Privacy by Design</div><div class="feat-desc">No account required. No background telemetry. No cloud inference. Your conversations, documents, and images stay exactly where they belong — on your phone.</div></div>
+      <div class="feat-card reveal d1"><div class="feat-icon fi-p">📄</div><div class="feat-title">Document Q&amp;A <span style="font-size:.65rem;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.04em;vertical-align:middle">✦ PREMIUM</span></div><div class="feat-desc">Upload PDFs, TXTs, CSVs, code and more — ask questions with PageIndex tree-based retrieval. Dual-mode RAG: Keyword (BM25 + TF-IDF) or Vector (cosine embedding) search with source citations. 100% on-device.</div></div>
+      <div class="feat-card reveal d2"><div class="feat-icon fi-t">👁</div><div class="feat-title">Vision AI <span style="font-size:.65rem;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.04em;vertical-align:middle">✦ PREMIUM</span></div><div class="feat-desc">Capture an image or pick one from your gallery and get instant on-device analysis. Scene description, visual Q&amp;A, context extraction — all local.</div></div>
+      <div class="feat-card reveal d3"><div class="feat-icon fi-k">🎙</div><div class="feat-title">Voice Studio <span style="font-size:.65rem;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.04em;vertical-align:middle">✦ PREMIUM</span></div><div class="feat-desc">Text-to-speech with speed and pitch control. Listen to AI responses hands-free. Voice-first interaction built for mobile accessibility and multitasking.</div></div>
+      <div class="feat-card reveal d4"><div class="feat-icon fi-v">🔍</div><div class="feat-title">Vector RAG <span style="font-size:.65rem;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.04em;vertical-align:middle">✦ NEW v3.1</span></div><div class="feat-desc">Pure-JS hash-projection embeddings (256-dim, IDF-weighted, L2-norm). Per-document cosine similarity search — no vector DB, no native module, zero APK size increase. Falls back to keyword search gracefully.</div></div>
+      <div class="feat-card reveal d5"><div class="feat-icon fi-o">🧠</div><div class="feat-title">AI Brain</div><div class="feat-desc">The central model management hub. See active model, installed models, available downloads, and device-matched recommendations — no ML knowledge needed.</div></div>
+      <div class="feat-card reveal d6"><div class="feat-icon fi-i">🔒</div><div class="feat-title">Privacy by Design</div><div class="feat-desc">No account required. No background telemetry. No cloud inference. Your conversations, documents, and images stay exactly where they belong — on your phone.</div></div>
     </div>
   </div>
 </div>
@@ -989,6 +1069,174 @@ footer{border-top:1px solid var(--border);background:rgba(255,255,255,.008)}
   </div>
 </div>
 
+<!-- PAYMENTS_DISABLED: Pricing section hidden — restore when billing is re-enabled -->
+<!--
+<div id="pricing">
+  <div class="wrap">
+    <div class="pricing-header">
+      <div class="sec-label reveal">Pricing</div>
+      <h2 class="sec-title reveal d1">Start free.<br><span class="g">Own it for ₹999.</span></h2>
+      <p class="sec-desc reveal d2">No hidden fees. Local accounts — no cloud sign-up needed. Your privacy is guaranteed on every plan — all AI runs on your device, not ours.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="price-card reveal">
+        <div class="price-plan-name">Free</div>
+        <div class="price-amount">₹0</div>
+        <div class="price-period">forever</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>AI Chat (unlimited)</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Models up to 1 GB</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>TurboQuant Auto / Off</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Context window: 2048 tokens</li>
+          <li class="price-feature"><span class="price-feature-x"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>Vision AI</li>
+          <li class="price-feature"><span class="price-feature-x"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>Voice Studio</li>
+          <li class="price-feature"><span class="price-feature-x"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>Document Q&amp;A &amp; Advanced RAG</li>
+          <li class="price-feature"><span class="price-feature-x"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>Models over 1 GB</li>
+          <li class="price-feature"><span class="price-feature-x"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>HuggingFace search</li>
+          <li class="price-feature"><span class="price-feature-x"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></span>Advanced TurboQuant levels</li>
+        </ul>
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="price-cta outline">Download Free</a>
+      </div>
+
+      <!-- MONTHLY -->
+      <div class="price-card reveal d1">
+        <div class="price-plan-name f-blue">Monthly</div>
+        <div class="price-amount">₹129</div>
+        <div class="price-period">per month · cancel anytime</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Everything in Free</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Vision AI</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Voice Studio</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Document Q&amp;A</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Advanced RAG (PageIndex)</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Models over 1 GB</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>HuggingFace model search</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>All TurboQuant levels</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Context window: 4096 tokens</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Gemma-4 4B+ models</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Priority support</li>
+        </ul>
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="price-cta outline">Get Monthly</a>
+      </div>
+
+      <!-- QUARTERLY -->
+      <div class="price-card reveal d2">
+        <div class="price-plan-name f-teal">Quarterly</div>
+        <div class="price-amount">₹249</div>
+        <div class="price-period">per 3 months</div>
+        <div class="price-save green">Save 36% vs monthly</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Everything in Free</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Vision AI</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Voice Studio</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Document Q&amp;A</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Advanced RAG (PageIndex)</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Models over 1 GB</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>HuggingFace model search</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>All TurboQuant levels</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Context window: 4096 tokens</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Gemma-4 4B+ models</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Priority support</li>
+        </ul>
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="price-cta outline">Get Quarterly</a>
+      </div>
+
+      <!-- YEARLY — RECOMMENDED -->
+      <div class="price-card featured reveal d3">
+        <div class="price-best">⚡ Most Popular</div>
+        <div class="price-plan-name f-blue" style="margin-top:1rem">Yearly</div>
+        <div class="price-amount g">₹499</div>
+        <div class="price-period">per year · billed once</div>
+        <div class="price-save green">Save 68% vs monthly</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Everything in Free</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Vision AI</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Voice Studio</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Document Q&amp;A</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Advanced RAG (PageIndex)</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Models over 1 GB</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>HuggingFace model search</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>All TurboQuant levels</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Context window: 4096 tokens</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Gemma-4 4B+ models</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Priority support</li>
+        </ul>
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="price-cta primary">Get Yearly — ₹499</a>
+      </div>
+
+      <!-- LIFETIME -->
+      <div class="price-card reveal d4">
+        <div class="price-plan-name f-purple">Lifetime</div>
+        <div class="price-amount" style="background:linear-gradient(135deg,#c4b5fd,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">₹999</div>
+        <div class="price-period">one-time · never pay again</div>
+        <div class="price-save blue">Best long-term value</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Everything in Free</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Vision AI</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Voice Studio</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Document Q&amp;A</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Advanced RAG (PageIndex)</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Models over 1 GB</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>HuggingFace model search</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>All TurboQuant levels</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Context window: 4096 tokens</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Gemma-4 4B+ models</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>All future premium features</li>
+          <li class="price-feature active"><span class="price-feature-check"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></span>Priority support · forever</li>
+        </ul>
+        <a href="https://play.google.com/store/apps/details?id=com.neuropocket.ai" target="_blank" class="price-cta primary" style="background:linear-gradient(135deg,var(--purple),#6d28d9);box-shadow:0 6px 22px rgba(139,92,246,.35)">Get Lifetime — ₹999</a>
+      </div>
+
+    </div><!-- /pricing-grid -->
+
+    <p class="pricing-note reveal">
+      All purchases processed securely via <strong>Google Play Billing</strong>. No payment data is collected by NeuroPocket AI.<br>
+      Subscriptions renew automatically and can be cancelled anytime from <a href="https://play.google.com/store/account/subscriptions" target="_blank">Google Play → Subscriptions</a>.<br>
+      Prices shown in INR. Equivalent local currency charged at checkout.
+    </p>
+
+    <!-- FAQ -->
+    <div class="pricing-faq reveal">
+      <div class="pricing-faq-title">Everything you need to know</div>
+      <div class="faq-grid">
+        <div class="faq-item reveal">
+          <div class="faq-q">Is the free tier really free, forever?</div>
+          <div class="faq-a">Yes. The free tier has no time limit and includes unlimited AI chat and models up to 1 GB — forever, no strings attached. Premium upgrades unlock Vision AI, Voice Studio, Document Q&amp;A, Advanced RAG, larger models, and more.</div>
+        </div>
+        <div class="faq-item reveal d1">
+          <div class="faq-q">How does the Lifetime plan work?</div>
+          <div class="faq-a">You pay ₹999 once via Google Play and unlock all premium features permanently — including every new premium feature added in future updates. No recurring charges, ever.</div>
+        </div>
+        <div class="faq-item reveal d2">
+          <div class="faq-q">Can I cancel my subscription anytime?</div>
+          <div class="faq-a">Yes. Manage or cancel your subscription at any time through Google Play Store → Account → Subscriptions. Access continues until the end of your current billing period.</div>
+        </div>
+        <div class="faq-item reveal d3">
+          <div class="faq-q">Does NeuroPocket AI store my payment details?</div>
+          <div class="faq-a">No. All billing is handled entirely by Google Play. NeuroPocket AI only receives a purchase token to verify your entitlement — no card numbers, bank details, or billing addresses are ever shared with us.</div>
+        </div>
+        <div class="faq-item reveal d4">
+          <div class="faq-q">What if I switch phones?</div>
+          <div class="faq-a">Your premium access is tied to your Google Play account. Sign in on a new device, open the app, and tap "Restore Purchases" on the Premium screen to recover your entitlement instantly.</div>
+        </div>
+        <div class="faq-item reveal d5">
+          <div class="faq-q">Are refunds available?</div>
+          <div class="faq-a">Refund requests are handled through Google Play's standard refund policy. You can request a refund within 48 hours of purchase directly from Google Play Store.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+-->
 
 <!-- DOWNLOAD -->
 <div id="download">
